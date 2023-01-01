@@ -7,6 +7,7 @@ export function Panel(props) {
     return (
         <div className='Panel'>
             <Task title='Math HW' description="Calc problems"/>
+            <Task title='Math HW' description="Calc problems"/>
         </div>
     );
 }
