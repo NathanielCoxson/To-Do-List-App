@@ -8,3 +8,13 @@
     width: 100%;
     border: 1px solid black;
 }
+
+.Panel button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2em;
+    height: 2em;
+    margin-left: auto;
+    margin-right: 0;
+}

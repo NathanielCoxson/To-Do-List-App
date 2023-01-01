@@ -4,10 +4,17 @@ import { useEffect, useState } from 'react';
 
 export function Panel(props) {
     const [tasks, setTasks] = useState();
+
+    const handleAddTask = (event) => {
+        
+    }
+
     return (
         <div className='Panel'>
             <Task title='Math HW' description="Calc problems"/>
             <Task title='Math HW' description="Calc problems"/>
+
+            <button onClick={handleAddTask}>+</button>
         </div>
     );
 }
