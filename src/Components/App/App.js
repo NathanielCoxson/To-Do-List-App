@@ -1,4 +1,3 @@
-import logo from '../../logo.svg';
 import './App.css';
 import { Title } from '../Title/Title.js'
 import { Panel } from '../Panel/Panel.js'
@@ -20,6 +19,7 @@ function App() {
           Learn React
         </a>
       </header> */}
+      
       <Title />
       <Panel />
     </div>
