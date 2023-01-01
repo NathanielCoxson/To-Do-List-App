@@ -21,7 +21,11 @@ function App() {
       </header> */}
       
       <Title />
-      <Panel />
+      <div className="Board">
+        <Panel />
+        <Panel />
+      </div>
+      
     </div>
   );
 }

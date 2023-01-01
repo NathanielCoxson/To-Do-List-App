@@ -1,0 +1,8 @@
+.Panel {
+    display: inline-flex;
+    justify-content: left;
+    padding: 1em;
+    margin: 0 1em;
+    width: 100%;
+    border: 1px solid black;
+}

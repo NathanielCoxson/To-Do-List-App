@@ -28,6 +28,12 @@
   color: #61dafb;
 }
 
+.Board {
+  display: inline-flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
