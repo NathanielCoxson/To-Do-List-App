@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+html {
+  background-color: #D0CCD0;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -28,6 +32,12 @@
   color: #61dafb;
 }
 
+.Board {
+  display: inline-flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -36,3 +46,7 @@
     transform: rotate(360deg);
   }
 }
+
+/* Palette colors:
+https://coolors.co/d0ccd0-fbfcff-605856-1c6e8c-274156
+*/

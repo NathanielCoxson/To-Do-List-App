@@ -1,0 +1,24 @@
+.Panel {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: left;
+    text-align: left;
+    padding: 1em;
+    margin: 0 1em;
+    width: 100%;
+    border: 1px solid black;
+    gap: 1em;
+}
+
+.Panel button {
+    justify-content: center;
+    align-items: center;
+    width: 2em;
+    height: 2em;
+    margin-left: auto;
+    margin-right: 0;
+    background-color: #1C6E8C;
+    color: #FBFCFF;
+    font-size: 20px;
+    border: none;
+}

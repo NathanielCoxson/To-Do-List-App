@@ -1,0 +1,11 @@
+.Task {
+    border: 1px solid black;
+    padding: 1em;
+}
+
+.TaskTitle {
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    border-bottom: 1px solid black;
+}
