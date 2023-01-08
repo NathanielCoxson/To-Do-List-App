@@ -7,10 +7,10 @@
     margin: 0 1em;
     width: 100%;
     border: 1px solid black;
+    gap: 1em;
 }
 
 .Panel button {
-    display: flex;
     justify-content: center;
     align-items: center;
     width: 2em;

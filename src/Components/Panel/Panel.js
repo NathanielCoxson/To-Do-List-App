@@ -6,20 +6,8 @@ import { useEffect, useState } from 'react';
 
 export function Panel(props) {
     const [addingTask, setAddingTask] = useState(false);
-    const [tasks, setTasks] = useState([
-        // {
-        //     title: 'Math HW',
-        //     description: 'Calc problems'
-        // },
-        // {
-        //     title: 'Engl HW',
-        //     description: 'Write essay'
-        // },
-        // {
-        //     title: 'Chem HW',
-        //     description: 'Lab Report'
-        // }
-    ]);
+    const [tasks, setTasks] = useState([]);
+    const [id, setId] = useState(0);
 
     //Handler for when the new task button is clicked
     const handleAddTask = (event) => {
@@ -29,14 +17,21 @@ export function Panel(props) {
     //Handler for when a new task's data is typed in.
     const handleTaskSubmission = (event) => {
         event.preventDefault();
+        console.log(id);
         setTasks([
             ...tasks,
             {
                 title: event.target.title.value,
-                description: event.target.description.value
+                description: event.target.description.value,
+                id: id
             }
         ]);
+        setId(id + 1);
         setAddingTask(false);
+    }
+
+    const removeTask = (taskId) => {
+        setTasks(tasks.filter(task => task.id != taskId));
     }
 
     return (
@@ -46,7 +41,9 @@ export function Panel(props) {
                     return <Task 
                         title={task.title} 
                         description={task.description} 
+                        id={task.id}
                         key={i}
+                        remove={removeTask}
                     />
                 })
             }            
