@@ -1,0 +1,14 @@
+.Panels {
+    display: inline-flex;
+    justify-content: space-evenly;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.SizeController {
+    display: inline-flex;
+    width: 100%;
+    padding: 1em;
+    box-sizing: border-box;
+    gap: 1em;
+}

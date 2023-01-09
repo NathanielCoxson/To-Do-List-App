@@ -1,10 +1,12 @@
 import './Panel.css'
 import { Task } from '../Task/Task.js'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 
 
 export function Panel(props) {
+    const {panelId, remove} = props;
+
     const [addingTask, setAddingTask] = useState(false);
     const [tasks, setTasks] = useState([]);
     const [id, setId] = useState(0);
@@ -17,7 +19,6 @@ export function Panel(props) {
     //Handler for when a new task's data is typed in.
     const handleTaskSubmission = (event) => {
         event.preventDefault();
-        console.log(id);
         setTasks([
             ...tasks,
             {
@@ -31,11 +32,17 @@ export function Panel(props) {
     }
 
     const removeTask = (taskId) => {
-        setTasks(tasks.filter(task => task.id != taskId));
+        setTasks(tasks.filter(task => task.id !== taskId));
+    }
+
+    const removeSelf = (event) => {
+        event.preventDefault();
+        remove(panelId);
     }
 
     return (
         <div className='Panel'>
+            <h1>{panelId}</h1>
             {
                 tasks.map((task, i) => {
                     return <Task 
@@ -63,6 +70,7 @@ export function Panel(props) {
                 </form>
             }
             <button onClick={handleAddTask}>+</button>
+            <button onClick={removeSelf}>-</button>
         </div>
     );
 }
