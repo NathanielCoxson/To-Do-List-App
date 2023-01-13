@@ -42,7 +42,7 @@ export function Panel(props) {
 
     return (
         <div className='Panel'>
-            <h1>{panelId}</h1>
+            <h1 contentEditable='true'>{panelId}</h1>
             {
                 tasks.map((task, i) => {
                     return <Task 
