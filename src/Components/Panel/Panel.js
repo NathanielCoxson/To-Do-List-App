@@ -38,19 +38,24 @@ export function Panel(props) {
     }
 
     const handleChangeTitle = (event) => {
-        event.preventDefault();
         //Get new title and call change function here
+        props.changePanelTitle(panelId, event.target.innerHTML);
+        console.log(event.target.innerHTML);
     }
 
+    /* Try to change the title so that the size fills the container*/
     return (
         <div className='Panel'>
-            <h1 
-                input={handleChangeTitle} 
-                contentEditable='true' 
-                suppressContentEditableWarning='true'
-            >
-                {panelTitle}
-            </h1>
+            <div className='PanelTitle'>
+                <p 
+                    
+                    onInput={handleChangeTitle} 
+                    contentEditable='true' 
+                    suppressContentEditableWarning='true'
+                >
+                    {panelTitle}
+                </p>
+            </div> 
             {
                 props.tasks.map((task, i) => {
                     return <Task 

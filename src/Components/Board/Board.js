@@ -83,12 +83,12 @@ export function Board(props) {
         }))
     }
 
-    const changePanelTitle = (panelId, title) => {
+    const changePanelTitle = (panelId, newTitle) => {
         setPanels(panels.map(panel => {
             if(panelId === panel.id) {
                 return {
                     ...panel,
-                    title: title
+                    title: newTitle
                 };
             }
             return panel;

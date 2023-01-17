@@ -15,4 +15,8 @@
     align-items: center;
     margin-left: auto;
     margin-right: 0;
-  }
+}
+
+.PanelTitle {
+    width: 100%;
+}
