@@ -1,11 +1,11 @@
 import './Task.css'
 
 export function Task(props) {
-    const {title, description, id, remove} = props;
+    const {title, description, id, removeTask} = props;
 
     const handleRemoval = (event) => {
         event.preventDefault();
-        remove(id);
+        removeTask(id);
     }
 
     return (

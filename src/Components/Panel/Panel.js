@@ -1,16 +1,12 @@
 import './Panel.css';
 import { Task } from '../Task/Task.js';
-import { useState, useEffect } from 'react';
-import ls from 'local-storage';
-
-
+import { useState } from 'react';
 
 export function Panel(props) {
-    const {panelId, remove} = props;
+    const {panelId, panelTitle, removePanel} = props;
 
     const [addingTask, setAddingTask] = useState(false);
-    const [tasks, setTasks] = useState([]);
-    const [id, setId] = useState(0);
+    const [id, setId] = useState(props.newTaskId);
 
     //Handler for when the new task button is clicked
     const handleAddTask = (event) => {
@@ -20,38 +16,36 @@ export function Panel(props) {
     //Handler for when a new task's data is typed in.
     const handleTaskSubmission = (event) => {
         event.preventDefault();
-        setTasks([
-            ...tasks,
-            {
-                title: event.target.title.value,
-                description: event.target.description.value,
-                id: id
-            }
-        ]);
+        props.addTask(
+            panelId,
+            id, 
+            event.target.title.value,
+            event.target.description.value
+        )
         setId(id + 1);
         setAddingTask(false);
     }
 
     const removeTask = (taskId) => {
-        setTasks(tasks.filter(task => task.id !== taskId));
+        props.removeTask(panelId, taskId);
     }
 
     const removeSelf = (event) => {
         event.preventDefault();
-        remove(panelId);
+        removePanel(panelId);
     }
 
     return (
         <div className='Panel'>
-            <h1 contentEditable='true'>{panelId}</h1>
+            <h1>{panelTitle}</h1>
             {
-                tasks.map((task, i) => {
+                props.tasks.map((task, i) => {
                     return <Task 
                         title={task.title} 
                         description={task.description} 
                         id={task.id}
                         key={i}
-                        remove={removeTask}
+                        removeTask={removeTask}
                     />
                 })
             }            
