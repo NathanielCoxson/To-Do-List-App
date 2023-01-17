@@ -83,6 +83,18 @@ export function Board(props) {
         }))
     }
 
+    const changePanelTitle = (panelId, title) => {
+        setPanels(panels.map(panel => {
+            if(panelId === panel.id) {
+                return {
+                    ...panel,
+                    title: title
+                };
+            }
+            return panel;
+        }));
+    }
+
     return (
         <div>
             <div className='Panels'>
@@ -97,6 +109,7 @@ export function Board(props) {
                             addTask={addTask}
                             removeTask={removeTask}
                             newTaskId={panel.newTaskId}
+                            changePanelTitle={changePanelTitle}
                         />
                     })
                 }

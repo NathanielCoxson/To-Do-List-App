@@ -35,9 +35,14 @@ export function Panel(props) {
         removePanel(panelId);
     }
 
+    const handleChangeTitle = (event) => {
+        event.preventDefault();
+        //Get new title and call change function here
+    }
+
     return (
         <div className='Panel'>
-            <h1>{panelTitle}</h1>
+            <h1 onClick={handleChangeTitle}>{panelTitle}</h1>
             {
                 props.tasks.map((task, i) => {
                     return <Task 
