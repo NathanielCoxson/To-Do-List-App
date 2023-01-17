@@ -1,11 +1,13 @@
 import './Panel.css';
 import { Task } from '../Task/Task.js';
 import { useState } from 'react';
+import { remove } from 'local-storage';
 
 export function Panel(props) {
     const {panelId, panelTitle, removePanel} = props;
 
     const [addingTask, setAddingTask] = useState(false);
+    const [changingTitle, setChangingTitle] = useState(false);
     const [id, setId] = useState(props.newTaskId);
 
     //Handler for when the new task button is clicked
@@ -42,7 +44,13 @@ export function Panel(props) {
 
     return (
         <div className='Panel'>
-            <h1 onClick={handleChangeTitle}>{panelTitle}</h1>
+            <h1 
+                input={handleChangeTitle} 
+                contentEditable='true' 
+                suppressContentEditableWarning='true'
+            >
+                {panelTitle}
+            </h1>
             {
                 props.tasks.map((task, i) => {
                     return <Task 
