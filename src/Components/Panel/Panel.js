@@ -1,6 +1,7 @@
-import './Panel.css'
-import { Task } from '../Task/Task.js'
-import { useState } from 'react';
+import './Panel.css';
+import { Task } from '../Task/Task.js';
+import { useState, useEffect } from 'react';
+import ls from 'local-storage';
 
 
 
