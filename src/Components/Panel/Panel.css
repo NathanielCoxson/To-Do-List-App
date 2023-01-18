@@ -17,6 +17,22 @@
     margin-right: 0;
 }
 
-.PanelTitle {
+.PanelTitle input {
+    background-color: transparent;
+    border: none;
+    font-size: 2em;
+    font-weight: bold;
     width: 100%;
+}
+
+.PanelTitle input:enabled {
+    background-color: transparent;
+}
+
+.PanelTitle input::placeholder {
+    color: black;    
+}
+
+.PanelTitle input:focus {
+    outline-style: groove;
 }

@@ -1,13 +1,10 @@
 import './Panel.css';
 import { Task } from '../Task/Task.js';
 import { useState } from 'react';
-import { remove } from 'local-storage';
 
 export function Panel(props) {
     const {panelId, panelTitle, removePanel} = props;
-
     const [addingTask, setAddingTask] = useState(false);
-    const [changingTitle, setChangingTitle] = useState(false);
     const [id, setId] = useState(props.newTaskId);
 
     //Handler for when the new task button is clicked
@@ -38,24 +35,23 @@ export function Panel(props) {
     }
 
     const handleChangeTitle = (event) => {
+        event.preventDefault();
         //Get new title and call change function here
-        props.changePanelTitle(panelId, event.target.innerHTML);
-        console.log(event.target.innerHTML);
+        props.changePanelTitle(panelId, event.target.value);
     }
 
-    /* Try to change the title so that the size fills the container*/
     return (
         <div className='Panel'>
-            <div className='PanelTitle'>
-                <p 
-                    
-                    onInput={handleChangeTitle} 
-                    contentEditable='true' 
-                    suppressContentEditableWarning='true'
-                >
-                    {panelTitle}
-                </p>
-            </div> 
+            <div id="PanelTitleDiv" className='PanelTitle'>
+                <form>
+                    <input 
+                        type='text'
+                        name='title'
+                        onChange={handleChangeTitle}
+                        value={panelTitle}
+                    ></input>
+                </form>
+            </div>
             {
                 props.tasks.map((task, i) => {
                     return <Task 
