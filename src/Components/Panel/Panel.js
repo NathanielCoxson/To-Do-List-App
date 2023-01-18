@@ -4,7 +4,6 @@ import { useState } from 'react';
 
 export function Panel(props) {
     const {panelId, panelTitle, removePanel} = props;
-
     const [addingTask, setAddingTask] = useState(false);
     const [id, setId] = useState(props.newTaskId);
 
@@ -35,9 +34,24 @@ export function Panel(props) {
         removePanel(panelId);
     }
 
+    const handleChangeTitle = (event) => {
+        event.preventDefault();
+        //Get new title and call change function here
+        props.changePanelTitle(panelId, event.target.value);
+    }
+
     return (
         <div className='Panel'>
-            <h1>{panelTitle}</h1>
+            <div id="PanelTitleDiv" className='PanelTitle'>
+                <form>
+                    <input 
+                        type='text'
+                        name='title'
+                        onChange={handleChangeTitle}
+                        value={panelTitle}
+                    ></input>
+                </form>
+            </div>
             {
                 props.tasks.map((task, i) => {
                     return <Task 
