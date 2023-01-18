@@ -35,7 +35,7 @@ export function Board(props) {
         }));
         setPanelCount(panels.length);
         console.log(localStorage.getItem('userData'));
-    }, [panels]);
+    }, [panels, id]);
 
     const handleAddPanel = (event) => {
         event.preventDefault();
