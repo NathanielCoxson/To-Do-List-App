@@ -1,11 +1,43 @@
-.Task {
+#TaskDiv {
     border: 1px solid black;
     padding: 1em;
+    background-color: #c0e0de;
+    border-radius: 1em;
+    width: 98%;
+    box-sizing: border-box;
+    transition: box-shadow 0.5s, width 0.5s;
 }
 
-.TaskTitle {
+#TaskDiv:hover {
+    box-shadow: -2px 2px #162521;
+    width: 100%;
+}
+
+#TaskTitle {
     display: inline-flex;
     align-items: center;
     width: 100%;
     border-bottom: 1px solid black;
+    justify-content: space-between;
 }
+
+.TaskCloseButton {
+    width: 1em;
+    height: 1em;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    margin-top: 0;
+    margin-bottom: auto;
+    margin-left: 1em;
+    font-weight: bold;
+    font-size: large;
+}
+
+.TaskCloseButton:hover {
+    cursor: pointer;
+}
+
+/* https://coolors.co/4f7cac-c0e0de-162521-3c474b-9eefe5 */

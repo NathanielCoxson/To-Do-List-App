@@ -9,10 +9,10 @@ export function Task(props) {
     }
 
     return (
-        <div className='Task'>
-            <div className='TaskTitle'>
+        <div id='TaskDiv' className='Task'>
+            <div id='TaskTitle'>
                 <h2>{title}</h2>
-                <button onClick={handleRemoval}>-</button>
+                <div className='TaskCloseButton' onClick={handleRemoval}><span>x</span></div>
             </div>
             <p>{description}</p>
         </div>
