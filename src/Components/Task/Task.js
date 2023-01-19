@@ -12,7 +12,7 @@ export function Task(props) {
         <div id='TaskDiv' className='Task'>
             <div id='TaskTitle'>
                 <h2>{title}</h2>
-                <div className='TaskCloseButton' onClick={handleRemoval}><span>x</span></div>
+                <div className='TaskCloseButton' onClick={handleRemoval}><span>X</span></div>
             </div>
             <p>{description}</p>
         </div>

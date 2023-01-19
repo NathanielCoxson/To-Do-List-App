@@ -1,4 +1,4 @@
-.Panel {
+#PanelDiv {
     display: inline-flex;
     flex-direction: column;
     justify-content: left;
@@ -8,13 +8,7 @@
     width: 100%;
     border: 1px solid black;
     gap: 1em;
-}
-
-.Panel button {
-    justify-content: center;
-    align-items: center;
-    margin-left: auto;
-    margin-right: 0;
+    background-color: #ece0d5;
 }
 
 .PanelTitle input {
@@ -36,3 +30,41 @@
 .PanelTitle input:focus {
     outline-style: groove;
 }
+
+#PanelTitleDiv {
+    display: inline-flex;
+    justify-content: space-between;
+}
+
+#PanelTitleDiv
+
+.PanelCloseButton {
+    width: 1em;
+    height: 1em;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    margin-top: 0;
+    margin-bottom: auto;
+    margin-left: 1em;
+    font-weight: bold;
+    font-size: large;
+}
+
+.PanelCloseButton span:hover {
+    cursor: pointer;
+}
+
+.AddTaskButton {
+    display: inline-flex;
+    justify-content: right;
+    font-size: 1.5em;
+}
+
+.AddTaskButton span:hover {
+    cursor: pointer;
+}
+
+/* https://coolors.co/4f7cac-c0e0de-162521-3c474b-ece0d5 */
