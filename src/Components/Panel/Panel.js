@@ -41,7 +41,7 @@ export function Panel(props) {
     }
 
     return (
-        <div className='Panel'>
+        <div id='PanelDiv'>
             <div id="PanelTitleDiv" className='PanelTitle'>
                 <form>
                     <input 
@@ -51,6 +51,7 @@ export function Panel(props) {
                         value={panelTitle}
                     ></input>
                 </form>
+                <div className='PanelCloseButton' onClick={removeSelf}><span>X</span></div>
             </div>
             {
                 props.tasks.map((task, i) => {
@@ -78,8 +79,7 @@ export function Panel(props) {
                     <input type='submit'></input>
                 </form>
             }
-            <button onClick={handleAddTask}>+</button>
-            <button onClick={removeSelf}>-</button>
+            <div className='AddTaskButton'><span onClick={handleAddTask}>+</span></div>
         </div>
     );
 }
