@@ -5,7 +5,6 @@ import { useState } from 'react';
 export function Panel(props) {
     const {panelId, panelTitle, removePanel} = props;
     const [addingTask, setAddingTask] = useState(false);
-    const [id, setId] = useState(props.newTaskId);
 
     //Handler for when the new task button is clicked
     const handleAddTask = (event) => {
@@ -17,11 +16,10 @@ export function Panel(props) {
         event.preventDefault();
         props.addTask(
             panelId,
-            id, 
+            JSON.parse(localStorage.getItem('userData')).newTaskId, 
             event.target.title.value,
             event.target.description.value
         )
-        setId(id + 1);
         setAddingTask(false);
     }
 
@@ -40,8 +38,29 @@ export function Panel(props) {
         props.changePanelTitle(panelId, event.target.value);
     }
 
+    const drop_handler = (event) => {
+        event.preventDefault();
+        const data = JSON.parse(event.dataTransfer.getData('text/plain'));
+        if(data.srcPanelId !== panelId) {
+            const taskMove = {
+                ...data,
+                dstPanelId: panelId
+            }
+            props.moveTask(taskMove);
+        }  
+    }
+    
+    const dragover_handler = (event) => {
+        event.preventDefault();
+        event.dataTransfer.dropEffect = 'move';
+    }
+
     return (
-        <div id='PanelDiv'>
+        <div 
+            id='PanelDiv'
+            onDragOver={dragover_handler}
+            onDrop={drop_handler}
+        >
             <div id="PanelTitleDiv" className='PanelTitle'>
                 <form>
                     <input 
@@ -54,13 +73,14 @@ export function Panel(props) {
                 <div className='PanelCloseButton' onClick={removeSelf}><span>X</span></div>
             </div>
             {
-                props.tasks.map((task, i) => {
+                props.taskIds.map((taskId, i) => {
                     return <Task 
-                        title={task.title} 
-                        description={task.description} 
-                        id={task.id}
+                        title={props.tasks.find(task => task.id === taskId).title} 
+                        description={props.tasks.find(task => task.id === taskId).description} 
+                        id={taskId}
                         key={i}
                         removeTask={removeTask}
+                        parentId={panelId}
                     />
                 })
             }            
