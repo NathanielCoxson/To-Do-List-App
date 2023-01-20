@@ -59,7 +59,22 @@ export function Board(props) {
     }
 
     const removePanel = (panelId) => {
+        //Get the list of task ids kept by the panel right before deletion
+        //so that they can be remove from tasks first.
+        const taskIds = panels.find(panel => panel.id === panelId).taskIds;
+        //Remove tasks that have an id matching an id in the taskIds list
+        //of the panel being deleted.
+        setTasks(tasks.filter(task => {
+            for(let i = 0; i < taskIds.length; i++) {
+                if(taskIds[i] === task.id) {
+                    return false;
+                }
+            }
+            return true;
+        }));
+        //Delete the panel from the list of panels.
         setPanels(panels.filter(panel => panel.id !== panelId));
+
     }
 
     const addTask = (panelId, id, title, description) => {

@@ -6,6 +6,8 @@
     width: 98%;
     box-sizing: border-box;
     transition: box-shadow 0.5s, width 0.5s;
+    margin-top: 0;
+    margin-bottom: auto;
 }
 
 #TaskDiv:hover {

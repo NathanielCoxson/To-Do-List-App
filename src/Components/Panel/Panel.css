@@ -1,7 +1,7 @@
 #PanelDiv {
     display: inline-flex;
     flex-direction: column;
-    justify-content: left;
+    justify-content: space-between;
     text-align: left;
     padding: 1em;
     margin: 0 1em;

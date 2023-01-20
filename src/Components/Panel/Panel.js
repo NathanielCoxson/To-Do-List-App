@@ -29,6 +29,7 @@ export function Panel(props) {
 
     const removeSelf = (event) => {
         event.preventDefault();
+        //Clean up tasks before deletion to prevent memory leaks.
         removePanel(panelId);
     }
 
