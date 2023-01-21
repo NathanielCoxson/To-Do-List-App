@@ -9,33 +9,40 @@ export function Board(props) {
                 {
                     id: 1,
                     title: 1,
-                    tasks: [],
+                    taskIds: [],
                     newTaskId: 1
                 },
                 {
                     id: 2,
                     title: 2,
-                    tasks: [],
+                    taskIds: [],
                     newTaskId: 1
                 }
             ],
+            tasks: [],
             panelId: 3,
-            panelCount: 2
+            panelCount: 2,
+            newTaskId: 1
         }));
     }
     const  [panels, setPanels] = useState(JSON.parse(localStorage.getItem('userData')).panels);
     const [id, setId] = useState(JSON.parse(localStorage.getItem('userData')).panelId);
     const [panelCount, setPanelCount] = useState(localStorage.getItem('userData'.panelCount));
+    const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem('userData')).tasks);
+    const [newTaskId, setNewTaskId] = useState(JSON.parse(localStorage.getItem('userData')).newTaskId);
 
     useEffect(() => {
         localStorage.setItem('userData', JSON.stringify({
             panels: panels,
             panelId: id,
-            panelCount: panels.length
+            panelCount: panels.length,
+            tasks: tasks,
+            newTaskId: newTaskId
         }));
         setPanelCount(panels.length);
-        console.log(localStorage.getItem('userData'));
-    }, [panels, id]);
+        //console.log(localStorage.getItem('userData'));
+        //console.log(JSON.parse(localStorage.getItem('userData')).tasks);
+    }, [panels, id, tasks, newTaskId]);
 
     const handleAddPanel = (event) => {
         event.preventDefault();
@@ -45,14 +52,29 @@ export function Board(props) {
             {
                 id: id,
                 title: panelCount + 1,
-                tasks: [],
+                taskIds: [],
                 newTaskId: 1
             }
         ]);
     }
 
     const removePanel = (panelId) => {
+        //Get the list of task ids kept by the panel right before deletion
+        //so that they can be remove from tasks first.
+        const taskIds = panels.find(panel => panel.id === panelId).taskIds;
+        //Remove tasks that have an id matching an id in the taskIds list
+        //of the panel being deleted.
+        setTasks(tasks.filter(task => {
+            for(let i = 0; i < taskIds.length; i++) {
+                if(taskIds[i] === task.id) {
+                    return false;
+                }
+            }
+            return true;
+        }));
+        //Delete the panel from the list of panels.
         setPanels(panels.filter(panel => panel.id !== panelId));
+
     }
 
     const addTask = (panelId, id, title, description) => {
@@ -60,15 +82,17 @@ export function Board(props) {
             if(panel.id === panelId) {
                 return {
                     ...panel,
-                    tasks: [
-                        ...panel.tasks,
-                        {title, description, id}
+                    taskIds: [
+                        ...panel.taskIds,
+                        id
                     ],
                     newTaskId: panel.newTaskId + 1
                 };
             }
             return panel;
         }));
+        setTasks([...tasks, {id, title, description}]);
+        setNewTaskId(newTaskId + 1);
     } 
 
     const removeTask = (panelId, taskId) => {
@@ -76,11 +100,12 @@ export function Board(props) {
             if(panelId === panel.id) {
                 return {
                     ...panel,
-                    tasks: panel.tasks.filter(task => taskId !== task.id)
+                    taskIds: panel.taskIds.filter(id => id !== taskId)
                 };
             }
             return panel;
-        }))
+        }));
+        setTasks(tasks.filter(task => task.id !== taskId));
     }
 
     const changePanelTitle = (panelId, newTitle) => {
@@ -95,6 +120,53 @@ export function Board(props) {
         }));
     }
 
+    /*
+        taskMove is an object like the following:
+        {
+            taskId: Number
+            targetTask: Number
+            srcPanelId: Number
+            dstPanelId: Number
+            position: String
+        }
+        taskId - id of the task that is being moved
+        targetTask - id of the task that the moving task was dropped on
+        srcPanelId - id of panel which the task originated from
+        dstPanelId - id of panel where the task was dropped
+        position - under if task was dropped underneath target task or over vice versa
+    */
+    const moveTask = (taskMove) => {
+        setPanels(panels.map(panel => {
+            let newTaskIds = [...panel.taskIds];
+            //Remove task from src
+            if(panel.id === taskMove.srcPanelId) {
+                const removeIndex = panel.taskIds.indexOf(taskMove.taskId);
+                newTaskIds.splice(removeIndex, 1);
+            }
+            //Add task to dst
+            if(panel.id === taskMove.dstPanelId) {
+                //If dropped on a panel
+                if(taskMove.targetTask === -1) {
+                    newTaskIds.push(taskMove.taskId);
+                }
+                //If dropped on a task
+                else {
+                    const insertIndex = panel.taskIds.indexOf(taskMove.targetTask);
+                    if(taskMove.position === 'over') {
+                        newTaskIds.splice(insertIndex, 0, taskMove.taskId);
+                    }
+                    else {
+                        newTaskIds.splice(insertIndex + 1, 0, taskMove.taskId);
+                    }
+                }
+            }
+            return {
+                ...panel,
+                taskIds: newTaskIds
+            };
+        }));  
+    }
+
     return (
         <div>
             <div className='Panels'>
@@ -103,13 +175,15 @@ export function Board(props) {
                         return <Panel
                             panelId={panel.id}
                             panelTitle={panel.title}
-                            tasks={panel.tasks}
+                            taskIds={panel.taskIds}
+                            tasks={tasks}
                             key={i}
                             removePanel={removePanel}
                             addTask={addTask}
                             removeTask={removeTask}
-                            newTaskId={panel.newTaskId}
+                            newTaskId={newTaskId}
                             changePanelTitle={changePanelTitle}
+                            moveTask={moveTask}
                         />
                     })
                 }
