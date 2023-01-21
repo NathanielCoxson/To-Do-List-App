@@ -3,12 +3,31 @@
     justify-content: space-evenly;
     width: 100%;
     box-sizing: border-box;
+    margin: 1em 0;
 }
 
-.SizeController {
+#SizeController {
     display: inline-flex;
-    width: 100%;
-    padding: 1em;
     box-sizing: border-box;
-    gap: 1em;
+    justify-content: right;
+    width: 100%;
+    padding-right: 1em;
+    padding-top: 1em;
+}
+
+#SizeController {
+    display: inline-flex;
+    box-sizing: border-box;
+    justify-content: right;
+    width: 100%;
+    padding-right: 1em;
+    padding-top: 1em;
+}
+
+#NewPanelButton {
+    font-size: 35px;
+}
+
+#NewPanelButton:hover {
+    cursor: pointer;
 }

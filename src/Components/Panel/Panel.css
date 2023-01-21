@@ -1,7 +1,6 @@
 #PanelDiv {
     display: inline-flex;
     flex-direction: column;
-    justify-content: space-between;
     text-align: left;
     padding: 1em;
     margin: 0 1em;
@@ -9,6 +8,8 @@
     border: 1px solid black;
     gap: 1em;
     background-color: #ece0d5;
+    height: fit-content;
+    border-radius: 1em;
 }
 
 .PanelTitle input {

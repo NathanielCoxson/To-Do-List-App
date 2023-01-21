@@ -167,8 +167,12 @@ export function Board(props) {
         }));  
     }
 
+    //<button onClick={handleAddPanel}>+</button>
     return (
-        <div>
+        <div id='Board'>
+            <div id='SizeController'>
+                <div id='NewPanelButton' onClick={handleAddPanel}>+</div>
+            </div>
             <div className='Panels'>
                 {
                     panels.map((panel, i) => {
@@ -187,9 +191,6 @@ export function Board(props) {
                         />
                     })
                 }
-            </div>
-            <div className='SizeController'>
-                <button onClick={handleAddPanel}>+</button>
             </div>
         </div>
     )

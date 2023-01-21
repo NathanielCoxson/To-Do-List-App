@@ -3,9 +3,14 @@
     padding: 1em;
     background-color: #c0e0de;
     border-radius: 1em;
-    width: 98%;
+    width: 100%;
     box-sizing: border-box;
     transition: box-shadow 0.5s, width 0.5s;
+}
+
+#TaskDiv h2 {
+    margin-top: 0;
+    margin-bottom: 0.5em;
 }
 
 #TaskOuterDiv {
