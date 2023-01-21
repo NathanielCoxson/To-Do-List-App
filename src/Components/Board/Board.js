@@ -120,22 +120,51 @@ export function Board(props) {
         }));
     }
 
+    /*
+        taskMove is an object like the following:
+        {
+            taskId: Number
+            targetTask: Number
+            srcPanelId: Number
+            dstPanelId: Number
+            position: String
+        }
+        taskId - id of the task that is being moved
+        targetTask - id of the task that the moving task was dropped on
+        srcPanelId - id of panel which the task originated from
+        dstPanelId - id of panel where the task was dropped
+        position - under if task was dropped underneath target task or over vice versa
+    */
     const moveTask = (taskMove) => {
         setPanels(panels.map(panel => {
+            let newTaskIds = [...panel.taskIds];
+            //Remove task from src
             if(panel.id === taskMove.srcPanelId) {
-                return {
-                    ...panel,
-                    taskIds: panel.taskIds.filter(taskId => taskId !== taskMove.taskId)
-                };
+                const removeIndex = panel.taskIds.indexOf(taskMove.taskId);
+                newTaskIds.splice(removeIndex, 1);
             }
+            //Add task to dst
             if(panel.id === taskMove.dstPanelId) {
-                return {
-                    ...panel,
-                    taskIds: [...panel.taskIds, taskMove.taskId]
+                //If dropped on a panel
+                if(taskMove.targetTask === -1) {
+                    newTaskIds.push(taskMove.taskId);
+                }
+                //If dropped on a task
+                else {
+                    const insertIndex = panel.taskIds.indexOf(taskMove.targetTask);
+                    if(taskMove.position === 'over') {
+                        newTaskIds.splice(insertIndex, 0, taskMove.taskId);
+                    }
+                    else {
+                        newTaskIds.splice(insertIndex + 1, 0, taskMove.taskId);
+                    }
                 }
             }
-            return panel;
-        }));
+            return {
+                ...panel,
+                taskIds: newTaskIds
+            };
+        }));  
     }
 
     return (

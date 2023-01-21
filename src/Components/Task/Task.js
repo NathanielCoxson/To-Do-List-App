@@ -16,13 +16,9 @@ export function Task(props) {
         }));
     }
 
-    const drag_handler = event => {
-        //console.log(event);
-    }
-
     const dragover_handler = event => {
-        //console.log(event.target.closest('#TaskDiv'));
-        //event.target.closest('#TaskDiv').style.marginBottom = '5em';
+        event.preventDefault();
+        event.dataTransfer.dropEffect = 'move';
         let targetDiv = event.target.closest('#TaskOuterDiv');
         let y = event.pageY;
         let top = targetDiv.offsetTop;
@@ -42,15 +38,12 @@ export function Task(props) {
     }
 
     const dragleave_handler = event => {
-        // event.target.closest('#TaskOuterDiv').style.paddingBottom = '0';
-        // event.target.closest('#TaskOuterDiv').style.paddingTop = '0';
-        //console.log(event);
+        event.preventDefault();
         if(event.target.id === 'TaskOuterDiv') {
             event.target.closest('#TaskOuterDiv').style.paddingBottom = '0';
             event.target.closest('#TaskOuterDiv').style.paddingTop = '0'; 
         }
     }
-
 
     /* 
         When a task is dropped on another, determine where that drop
@@ -62,33 +55,30 @@ export function Task(props) {
     const drop_handler = event => {
         event.preventDefault();
         const data = JSON.parse(event.dataTransfer.getData('text/plain'));
-        console.log(data);
-        // if(data.srcPanelId !== props.parentId) {
-        //     const taskMove = {
-        //         ...data,
-        //         dstPanelId: props.parentId
-        //     }
-        //     props.moveTask(taskMove);
-        // }  
-        // if(props.taskIds.length > 0) {
-        //     event.target.closest('#TaskOuterDiv').style.paddingBottom = '0';
-        //     event.target.closest('#TaskOuterDiv').style.paddingTop = '0';
-        // }
-        console.log(event);
+        const targetDiv = event.target.closest('#TaskOuterDiv');
+        const paddingTop = parseInt(targetDiv.style.paddingTop);
+        const taskMove = {
+            ...data,
+            dstPanelId: props.parentId,
+            targetTask: id,
+            position: paddingTop ? 'over' : 'under'
+        }
+        props.moveTask(taskMove);
+        targetDiv.style.paddingTop = '0';
+        targetDiv.style.paddingBottom = '0';
     }
 
     return (
         <div id='TaskOuterDiv'
             onDragOver={dragover_handler}
             onDragLeave={dragleave_handler}
-            onDrop={drop_handler}
+            onDrop={drop_handler}   
         >
             <div 
                 id='TaskDiv' 
                 className='Task'
                 draggable='true'
                 onDragStart={dragstart_handler}
-                onDrag={drag_handler}
             >
                 <div id='TaskTitle'>
                     <h2>{title}</h2>

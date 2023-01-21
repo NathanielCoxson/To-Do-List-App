@@ -39,22 +39,20 @@ export function Panel(props) {
         props.changePanelTitle(panelId, event.target.value);
     }
 
+    //Only process event if the panel is currently empty, otherwise
+    //only process the event that fires on the target task.
     const drop_handler = (event) => {
-        // event.preventDefault();
-        // const data = JSON.parse(event.dataTransfer.getData('text/plain'));
-        // console.log(data);
-        // if(data.srcPanelId !== panelId) {
-        //     const taskMove = {
-        //         ...data,
-        //         dstPanelId: panelId
-        //     }
-        //     props.moveTask(taskMove);
-        // }  
-        // if(props.taskIds.length > 0) {
-        //     event.target.closest('#TaskOuterDiv').style.paddingBottom = '0';
-        //     event.target.closest('#TaskOuterDiv').style.paddingTop = '0';
-        // }
-        // //console.log(event);
+        event.preventDefault();
+        if(props.taskIds.length === 0) {
+            const data = JSON.parse(event.dataTransfer.getData('text/plain'));
+            const taskMove = {
+                ...data,
+                dstPanelId: props.panelId,
+                targetTask: -1,
+                position: 'over'
+            }
+            props.moveTask(taskMove);
+        }
     }
     
     const dragover_handler = (event) => {
