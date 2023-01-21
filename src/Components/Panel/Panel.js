@@ -40,15 +40,21 @@ export function Panel(props) {
     }
 
     const drop_handler = (event) => {
-        event.preventDefault();
-        const data = JSON.parse(event.dataTransfer.getData('text/plain'));
-        if(data.srcPanelId !== panelId) {
-            const taskMove = {
-                ...data,
-                dstPanelId: panelId
-            }
-            props.moveTask(taskMove);
-        }  
+        // event.preventDefault();
+        // const data = JSON.parse(event.dataTransfer.getData('text/plain'));
+        // console.log(data);
+        // if(data.srcPanelId !== panelId) {
+        //     const taskMove = {
+        //         ...data,
+        //         dstPanelId: panelId
+        //     }
+        //     props.moveTask(taskMove);
+        // }  
+        // if(props.taskIds.length > 0) {
+        //     event.target.closest('#TaskOuterDiv').style.paddingBottom = '0';
+        //     event.target.closest('#TaskOuterDiv').style.paddingTop = '0';
+        // }
+        // //console.log(event);
     }
     
     const dragover_handler = (event) => {
@@ -82,6 +88,7 @@ export function Panel(props) {
                         key={i}
                         removeTask={removeTask}
                         parentId={panelId}
+                        moveTask={props.moveTask}
                     />
                 })
             }            
