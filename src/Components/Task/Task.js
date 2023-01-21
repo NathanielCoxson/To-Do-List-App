@@ -84,7 +84,11 @@ export function Task(props) {
                     <h2>{title}</h2>
                     <div className='TaskCloseButton' onClick={handleRemoval}><span>X</span></div>
                 </div>
-                <p>{description}</p>
+                
+                <div id='TaskContent'>
+                    <p>{description}</p>
+                    <div id='TaskCheckoffButton'><span>✓</span></div>
+                </div>
             </div>
         </div>
     )
