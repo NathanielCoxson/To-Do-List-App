@@ -93,7 +93,7 @@
 }
 
 #NewTaskInputDiv #submitButton {
-    width: 10%;
+    width: 5em;
 }
 
 #NewTaskInputDiv textarea {
