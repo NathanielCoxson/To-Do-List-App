@@ -61,7 +61,6 @@ export function Panel(props) {
     }
 
     const handleDescriptionInput = event => {
-        console.log(event.target.scrollHeight);
         event.target.style.height = 0;
         event.target.style.height = (event.target.scrollHeight) + 'px';
     }
