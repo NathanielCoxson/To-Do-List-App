@@ -151,7 +151,7 @@ export function Board(props) {
                 }
                 //If dropped on a task
                 else {
-                    const insertIndex = panel.taskIds.indexOf(taskMove.targetTask);
+                    const insertIndex = newTaskIds.indexOf(taskMove.targetTask);
                     if(taskMove.position === 'over') {
                         newTaskIds.splice(insertIndex, 0, taskMove.taskId);
                     }
