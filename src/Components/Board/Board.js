@@ -91,7 +91,7 @@ export function Board(props) {
             }
             return panel;
         }));
-        setTasks([...tasks, {id, title, description}]);
+        setTasks([...tasks, {id, title, description, checkedOff: false}]);
         setNewTaskId(newTaskId + 1);
     } 
 
@@ -167,6 +167,18 @@ export function Board(props) {
         }));  
     }
 
+    const checkOffTask = taskId => {
+        setTasks(tasks.map(task => {
+            if(task.id === taskId) {
+                return {
+                    ...task,
+                    checkedOff: task.checkedOff ? false : true
+                }
+            }
+            return task;
+        }));
+    }
+
     //<button onClick={handleAddPanel}>+</button>
     return (
         <div id='Board'>
@@ -188,6 +200,7 @@ export function Board(props) {
                             newTaskId={newTaskId}
                             changePanelTitle={changePanelTitle}
                             moveTask={moveTask}
+                            checkOffTask={checkOffTask}
                         />
                     })
                 }

@@ -8,6 +8,11 @@ export function Task(props) {
         removeTask(id);
     }
 
+    const handleCheckOff = event => {
+        event.preventDefault();
+        props.checkOffTask(id);
+    }
+
     const dragstart_handler = (event) => {
         //Set data to be the task id of the task being dragged
         event.dataTransfer.setData("text/plain", JSON.stringify({
@@ -81,13 +86,19 @@ export function Task(props) {
                 onDragStart={dragstart_handler}
             >
                 <div id='TaskTitle'>
-                    <h2>{title}</h2>
+                    {props.checkedOff ? 
+                        <s><h2>{title}</h2></s> :
+                        <h2>{title}</h2>
+                    }
                     <div className='TaskCloseButton' onClick={handleRemoval}><span>X</span></div>
                 </div>
                 
                 <div id='TaskContent'>
-                    <p>{description}</p>
-                    <div id='TaskCheckoffButton'><span>✓</span></div>
+                    {props.checkedOff ?
+                        <s><p>{description}</p></s> :
+                        <p>{description}</p>
+                    }
+                    <div id='TaskCheckoffButton' onClick={handleCheckOff}><span>✓</span></div>
                 </div>
             </div>
         </div>
