@@ -50,13 +50,6 @@ export function Task(props) {
         }
     }
 
-    /* 
-        When a task is dropped on another, determine where that drop
-        happened so that you can determine if the new task should go
-        before or after the one that was already there. Then pass that
-        information with the task move object up to the board using
-        its moveTask function.
-    */
     const drop_handler = event => {
         event.preventDefault();
         const data = JSON.parse(event.dataTransfer.getData('text/plain'));
