@@ -74,4 +74,31 @@
     border: 1px solid black;
 }
 
+#NewTaskInputDiv {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#NewTaskInputDiv form {
+    width: 100%;
+    padding: 1em;
+    display: inline-flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+#NewTaskInputDiv #titleInput {
+    width: 50%;
+}
+
+#NewTaskInputDiv #submitButton {
+    width: 5em;
+}
+
+#NewTaskInputDiv textarea {
+    width: 50%;
+    resize: none;
+}
+
 /* https://coolors.co/4f7cac-c0e0de-162521-3c474b-ece0d5 */

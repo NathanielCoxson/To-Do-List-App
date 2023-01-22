@@ -8,6 +8,13 @@
     transition: box-shadow 0.5s, width 0.5s;
 }
 
+/* user-select partially fixes issue #28 but you can only
+    use double click to select and not drag select.
+*/
+#TaskDiv p {
+    user-select: text;
+}
+
 #TaskDiv h2 {
     margin-top: 0;
     margin-bottom: 0.5em;

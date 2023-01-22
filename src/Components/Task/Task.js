@@ -88,8 +88,8 @@ export function Task(props) {
                 
                 <div id='TaskContent'>
                     {props.checkedOff ?
-                        <s><p>{description}</p></s> :
-                        <p>{description}</p>
+                        <s><p draggable='false'>{description}</p></s> :
+                        <p draggable='false'>{description}</p>
                     }
                     <div id='TaskCheckoffButton' onClick={handleCheckOff}><span>✓</span></div>
                 </div>

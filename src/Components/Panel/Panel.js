@@ -60,6 +60,11 @@ export function Panel(props) {
         event.dataTransfer.dropEffect = 'move';
     }
 
+    const handleDescriptionInput = event => {
+        event.target.style.height = 0;
+        event.target.style.height = (event.target.scrollHeight) + 'px';
+    }
+
     return (
         <div 
             id='PanelDiv'
@@ -93,19 +98,23 @@ export function Panel(props) {
                 })
             }            
             {addingTask &&
-                <form onSubmit={handleTaskSubmission}>
-                    <input 
-                        type='text'
-                        placeholder='Title'
-                        name='title'>
-                    </input>
-                    <input 
-                        type='text'
-                        placeholder='Description'
-                        name='description'>
-                    </input>
-                    <input type='submit'></input>
-                </form>
+                <div id='NewTaskInputDiv'>
+                    <form onSubmit={handleTaskSubmission}>
+                        <label for='title'>Title:</label>
+                        <input 
+                            type='text'
+                            name='title'
+                            id='titleInput'>
+                        </input>
+                        <label for='description'>Description:</label>
+                        <textarea 
+                            type='text'
+                            name='description'
+                            onInput={handleDescriptionInput}>
+                        </textarea>
+                        <input type='submit' id='submitButton'></input>
+                    </form>
+                </div>
             }
             <div className='AddTaskButton'><span onClick={handleAddTask}>+</span></div>
         </div>
