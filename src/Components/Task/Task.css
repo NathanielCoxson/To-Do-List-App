@@ -51,4 +51,21 @@
     cursor: pointer;
 }
 
+#TaskContent {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#TaskCheckoffButton {
+    margin: auto 0 0 auto;
+    font-size: large;
+    font-weight: bold;
+}
+
+#TaskCheckoffButton:hover {
+    cursor: pointer;
+}
+
+
 /* https://coolors.co/4f7cac-c0e0de-162521-3c474b-ece0d5 */
