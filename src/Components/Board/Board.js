@@ -44,6 +44,14 @@ export function Board(props) {
         //console.log(JSON.parse(localStorage.getItem('userData')).tasks);
     }, [panels, id, tasks, newTaskId]);
 
+    useEffect(() => {
+        let elements = document.getElementsByClassName('taskDescriptionTextarea');
+        for(let i = 0; i < elements.length; i++) {
+            elements[i].style.height = 0;
+            elements[i].style.height = elements[i].scrollHeight + 'px';
+        }
+    });
+
     const handleAddPanel = (event) => {
         event.preventDefault();
         setId(id + 1);
@@ -179,7 +187,30 @@ export function Board(props) {
         }));
     }
 
-    //<button onClick={handleAddPanel}>+</button>
+    const updateTaskTitle = (title, id) => {
+        setTasks(tasks.map(task => {
+            if(task.id === id) {
+                return {
+                    ...task,
+                    title: title
+                };
+            }
+            return task;
+        }))
+    }
+
+    const updateTaskDescription = (description, id) => {
+        setTasks(tasks.map(task => {
+            if(task.id === id) {
+                return {
+                    ...task,
+                    description: description
+                };
+            }
+            return task;
+        }))
+    }
+
     return (
         <div id='Board'>
             <div id='SizeController'>
@@ -201,6 +232,8 @@ export function Board(props) {
                             changePanelTitle={changePanelTitle}
                             moveTask={moveTask}
                             checkOffTask={checkOffTask}
+                            updateTaskTitle={updateTaskTitle}
+                            updateTaskDescription={updateTaskDescription}
                         />
                     })
                 }

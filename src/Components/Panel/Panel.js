@@ -94,19 +94,21 @@ export function Panel(props) {
                         moveTask={props.moveTask}
                         checkOffTask={props.checkOffTask}
                         checkedOff={props.tasks.find(task => task.id === taskId).checkedOff}
+                        updateTaskTitle={props.updateTaskTitle}
+                        updateTaskDescription={props.updateTaskDescription}
                     />
                 })
             }            
             {addingTask &&
                 <div id='NewTaskInputDiv'>
                     <form onSubmit={handleTaskSubmission}>
-                        <label for='title'>Title:</label>
+                        <label htmlFor='title'>Title:</label>
                         <input 
                             type='text'
                             name='title'
                             id='titleInput'>
                         </input>
-                        <label for='description'>Description:</label>
+                        <label htmlFor='description'>Description:</label>
                         <textarea 
                             type='text'
                             name='description'
