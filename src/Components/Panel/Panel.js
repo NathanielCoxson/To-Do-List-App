@@ -94,6 +94,8 @@ export function Panel(props) {
                         moveTask={props.moveTask}
                         checkOffTask={props.checkOffTask}
                         checkedOff={props.tasks.find(task => task.id === taskId).checkedOff}
+                        updateTaskTitle={props.updateTaskTitle}
+                        updateTaskDescription={props.updateTaskDescription}
                     />
                 })
             }            

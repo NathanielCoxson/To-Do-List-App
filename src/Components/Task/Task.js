@@ -66,6 +66,16 @@ export function Task(props) {
         targetDiv.style.paddingBottom = '0';
     }
 
+    const handleTitleInput = event => {
+        event.preventDefault();
+        props.updateTaskTitle(event.target.textContent, id);
+    }
+
+    const handleDescriptionInput = event => {
+        event.preventDefault();
+        props.updateTaskDescription();
+    }
+
     return (
         <div id='TaskOuterDiv'
             onDragOver={dragover_handler}
@@ -80,8 +90,16 @@ export function Task(props) {
             >
                 <div id='TaskTitle'>
                     {props.checkedOff ? 
-                        <s><h2>{title}</h2></s> :
-                        <h2>{title}</h2>
+                        <s><h2
+                            contentEditable='true'
+                            onInput={handleTitleInput}
+                            suppressContentEditableWarning='true'
+                        >{title}</h2></s> :
+                        <h2
+                            contentEditable='true'
+                            onInput={handleTitleInput}
+                            suppressContentEditableWarning='true'
+                        >{title}</h2>
                     }
                     <div className='TaskCloseButton' onClick={handleRemoval}><span>X</span></div>
                 </div>

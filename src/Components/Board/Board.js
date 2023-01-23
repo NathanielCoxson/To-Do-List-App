@@ -179,7 +179,30 @@ export function Board(props) {
         }));
     }
 
-    //<button onClick={handleAddPanel}>+</button>
+    const updateTaskTitle = (title, id) => {
+        setTasks(tasks.map(task => {
+            if(task.id === id) {
+                return {
+                    ...task,
+                    title: title
+                };
+            }
+            return task;
+        }))
+    }
+
+    const updateTaskDescription = (description, id) => {
+        setTasks(tasks.map(task => {
+            if(task.id === id) {
+                return {
+                    ...task,
+                    description: description
+                };
+            }
+            return task;
+        }))
+    }
+
     return (
         <div id='Board'>
             <div id='SizeController'>
@@ -201,6 +224,8 @@ export function Board(props) {
                             changePanelTitle={changePanelTitle}
                             moveTask={moveTask}
                             checkOffTask={checkOffTask}
+                            updateTaskTitle={updateTaskTitle}
+                            updateTaskDescription={updateTaskDescription}
                         />
                     })
                 }
