@@ -85,12 +85,14 @@ export function Task(props) {
             onDrop={drop_handler}   
         >
             <div 
-                id='TaskDiv' 
                 className='Task'
-                draggable='true'
-                onDragStart={dragstart_handler}
+                id='TaskDiv' 
             >
-                <div id='TaskTitle'>
+                <div 
+                    id='TaskTitle'
+                    draggable='true'
+                    onDragStart={dragstart_handler}
+                >
                     {props.checkedOff ? 
                         <form id='TaskTitleForm'>
                             <input 
@@ -102,7 +104,7 @@ export function Task(props) {
                                 style={{textDecoration: 'line-through'}}
                             ></input>
                         </form> :
-                        <form>
+                        <form id='TaskTitleForm'>
                             <input 
                                 id='TaskTitleInput'
                                 type='text'
@@ -138,7 +140,11 @@ export function Task(props) {
                         </form>
                     }  
                 </div>
-                <div id='TaskCheckoffButton'><span onClick={handleCheckOff}>✓</span></div>
+                <div 
+                    id='TaskCheckoffButton'
+                    draggable='true'
+                    onDragStart={dragstart_handler}
+                ><span onClick={handleCheckOff}>✓</span></div>
             </div>
         </div>
     )
