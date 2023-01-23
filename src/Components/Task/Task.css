@@ -1,6 +1,5 @@
 #TaskDiv {
     border: 1px solid black;
-    padding: 1em;
     background-color: #c0e0de;
     border-radius: 1em;
     width: 100%;
@@ -37,6 +36,8 @@
     width: 100%;
     border-bottom: 1px solid black;
     justify-content: space-between;
+    padding: 1em 1em 0.5em 1em;
+    box-sizing: border-box;
 }
 
 .TaskCloseButton {
@@ -62,12 +63,16 @@
     display: inline-flex;
     justify-content: space-between;
     width: 100%;
+    padding: 0 1em;
+    box-sizing: border-box;
 }
 
 #TaskCheckoffButton {
     display: inline-flex;
     justify-content: right;
     width: 100%;
+    padding: 0 1em 1em 1em;
+    box-sizing: border-box;
 }
 
 #TaskCheckoffButton span {
@@ -98,11 +103,17 @@
     outline-style: groove;
 }
 
+#TaskTitleForm{
+    width: 100%;
+}
+
 #TaskTitleInput {
     background-color: transparent;
     border: none;
     font-size: larger;
     font-weight: bold;
+    size: '';
+    width: 100%;
 }
 
 #TaskTitleInput:focus {
