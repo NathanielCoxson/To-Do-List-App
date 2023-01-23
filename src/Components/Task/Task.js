@@ -68,12 +68,14 @@ export function Task(props) {
 
     const handleTitleInput = event => {
         event.preventDefault();
-        props.updateTaskTitle(event.target.textContent, id);
+        props.updateTaskTitle(event.target.value, id);
     }
 
     const handleDescriptionInput = event => {
         event.preventDefault();
-        props.updateTaskDescription();
+        props.updateTaskDescription(event.target.value, id);
+        event.target.style.height = 0;
+        event.target.style.height = (event.target.scrollHeight) + 'px';
     }
 
     return (
@@ -90,27 +92,53 @@ export function Task(props) {
             >
                 <div id='TaskTitle'>
                     {props.checkedOff ? 
-                        <s><h2
-                            contentEditable='true'
-                            onInput={handleTitleInput}
-                            suppressContentEditableWarning='true'
-                        >{title}</h2></s> :
-                        <h2
-                            contentEditable='true'
-                            onInput={handleTitleInput}
-                            suppressContentEditableWarning='true'
-                        >{title}</h2>
+                        <form id='TaskTitleForm'>
+                            <input 
+                                id='TaskTitleInput'
+                                type='text'
+                                name='title'
+                                onChange={handleTitleInput}
+                                value={title}
+                                style={{textDecoration: 'line-through'}}
+                            ></input>
+                        </form> :
+                        <form>
+                            <input 
+                                id='TaskTitleInput'
+                                type='text'
+                                name='title'
+                                onChange={handleTitleInput}
+                                value={title}
+                            ></input>
+                        </form>
                     }
                     <div className='TaskCloseButton' onClick={handleRemoval}><span>X</span></div>
                 </div>
                 
                 <div id='TaskContent'>
                     {props.checkedOff ?
-                        <s><p draggable='false'>{description}</p></s> :
-                        <p draggable='false'>{description}</p>
-                    }
-                    <div id='TaskCheckoffButton' onClick={handleCheckOff}><span>✓</span></div>
+                        <form id='TaskContentForm'>
+                            <textarea  
+                                className='taskDescriptionTextarea' 
+                                type='text'
+                                name='description'
+                                onChange={handleDescriptionInput}
+                                value={description}
+                                style={{textDecoration: 'line-through'}}
+                            ></textarea>
+                        </form> :
+                        <form id='TaskContentForm'>
+                            <textarea
+                                className='taskDescriptionTextarea' 
+                                type='text'
+                                name='description'
+                                onChange={handleDescriptionInput}
+                                value={description}
+                            ></textarea>
+                        </form>
+                    }  
                 </div>
+                <div id='TaskCheckoffButton'><span onClick={handleCheckOff}>✓</span></div>
             </div>
         </div>
     )

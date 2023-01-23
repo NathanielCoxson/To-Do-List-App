@@ -65,13 +65,48 @@
 }
 
 #TaskCheckoffButton {
-    margin: auto 0 0 auto;
+    display: inline-flex;
+    justify-content: right;
+    width: 100%;
+}
+
+#TaskCheckoffButton span {
     font-size: large;
+    font-weight: bold;
+    margin: 0;
+}
+
+#TaskCheckoffButton span:hover {
+    cursor: pointer;
+}
+
+#TaskContentForm {
+    width: 100%;
+    padding-top: 1em;
+}
+
+#TaskContentForm textarea {
+    resize: none;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px;
+    background-color: transparent;
+    border: none;
+}
+
+.taskDescriptionTextarea:focus {
+    outline-style: groove;
+}
+
+#TaskTitleInput {
+    background-color: transparent;
+    border: none;
+    font-size: larger;
     font-weight: bold;
 }
 
-#TaskCheckoffButton:hover {
-    cursor: pointer;
+#TaskTitleInput:focus {
+    outline-style: none;
 }
 
 
