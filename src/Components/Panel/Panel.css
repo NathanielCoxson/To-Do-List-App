@@ -66,12 +66,6 @@
     cursor: pointer;
 }
 
-#dropzone {
-    width: 500px;
-    height: 500px;
-    border: 1px solid black;
-}
-
 #NewTaskInputDiv {
     width: 100%;
     display: flex;
@@ -87,7 +81,7 @@
 }
 
 #NewTaskInputDiv #titleInput {
-    width: 50%;
+    width: 100%;
 }
 
 #NewTaskInputDiv #submitButton {
@@ -95,7 +89,7 @@
 }
 
 #NewTaskInputDiv textarea {
-    width: 50%;
+    width: 100%;
     resize: none;
 }
 
