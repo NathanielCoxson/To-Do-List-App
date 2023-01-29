@@ -1,9 +1,11 @@
 import './Board.css';
 import { Panel } from '../Panel/Panel';
 import { useState, useEffect } from 'react';
+import { Sidebar } from '../Sidebar/Sidebar';
+import { Header } from '../Header/Header';
 
 export function Board(props) {
-    if(!localStorage.getItem('userData')) {
+    if (!localStorage.getItem('userData')) {
         localStorage.setItem('userData', JSON.stringify({
             panels: [
                 {
@@ -25,11 +27,12 @@ export function Board(props) {
             newTaskId: 1
         }));
     }
-    const  [panels, setPanels] = useState(JSON.parse(localStorage.getItem('userData')).panels);
+    const [panels, setPanels] = useState(JSON.parse(localStorage.getItem('userData')).panels);
     const [id, setId] = useState(JSON.parse(localStorage.getItem('userData')).panelId);
     const [panelCount, setPanelCount] = useState(localStorage.getItem('userData'.panelCount));
     const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem('userData')).tasks);
     const [newTaskId, setNewTaskId] = useState(JSON.parse(localStorage.getItem('userData')).newTaskId);
+    const [sidebarIsHidden, setSidebarIsHidden] = useState(true);
 
     useEffect(() => {
         localStorage.setItem('userData', JSON.stringify({
@@ -46,14 +49,13 @@ export function Board(props) {
 
     useEffect(() => {
         let elements = document.getElementsByClassName('taskDescriptionTextarea');
-        for(let i = 0; i < elements.length; i++) {
+        for (let i = 0; i < elements.length; i++) {
             elements[i].style.height = 0;
             elements[i].style.height = elements[i].scrollHeight + 'px';
         }
     });
 
-    const handleAddPanel = (event) => {
-        event.preventDefault();
+    const addPanel = () => {
         setId(id + 1);
         setPanels([
             ...panels,
@@ -73,8 +75,8 @@ export function Board(props) {
         //Remove tasks that have an id matching an id in the taskIds list
         //of the panel being deleted.
         setTasks(tasks.filter(task => {
-            for(let i = 0; i < taskIds.length; i++) {
-                if(taskIds[i] === task.id) {
+            for (let i = 0; i < taskIds.length; i++) {
+                if (taskIds[i] === task.id) {
                     return false;
                 }
             }
@@ -87,7 +89,7 @@ export function Board(props) {
 
     const addTask = (panelId, id, title, description) => {
         setPanels(panels.map(panel => {
-            if(panel.id === panelId) {
+            if (panel.id === panelId) {
                 return {
                     ...panel,
                     taskIds: [
@@ -99,13 +101,13 @@ export function Board(props) {
             }
             return panel;
         }));
-        setTasks([...tasks, {id, title, description, checkedOff: false}]);
+        setTasks([...tasks, { id, title, description, checkedOff: false }]);
         setNewTaskId(newTaskId + 1);
-    } 
+    }
 
     const removeTask = (panelId, taskId) => {
         setPanels(panels.map(panel => {
-            if(panelId === panel.id) {
+            if (panelId === panel.id) {
                 return {
                     ...panel,
                     taskIds: panel.taskIds.filter(id => id !== taskId)
@@ -118,7 +120,7 @@ export function Board(props) {
 
     const changePanelTitle = (panelId, newTitle) => {
         setPanels(panels.map(panel => {
-            if(panelId === panel.id) {
+            if (panelId === panel.id) {
                 return {
                     ...panel,
                     title: newTitle
@@ -147,20 +149,20 @@ export function Board(props) {
         setPanels(panels.map(panel => {
             let newTaskIds = [...panel.taskIds];
             //Remove task from src
-            if(panel.id === taskMove.srcPanelId) {
+            if (panel.id === taskMove.srcPanelId) {
                 const removeIndex = panel.taskIds.indexOf(taskMove.taskId);
                 newTaskIds.splice(removeIndex, 1);
             }
             //Add task to dst
-            if(panel.id === taskMove.dstPanelId) {
+            if (panel.id === taskMove.dstPanelId) {
                 //If dropped on a panel
-                if(taskMove.targetTask === -1) {
+                if (taskMove.targetTask === -1) {
                     newTaskIds.push(taskMove.taskId);
                 }
                 //If dropped on a task
                 else {
                     const insertIndex = newTaskIds.indexOf(taskMove.targetTask);
-                    if(taskMove.position === 'over') {
+                    if (taskMove.position === 'over') {
                         newTaskIds.splice(insertIndex, 0, taskMove.taskId);
                     }
                     else {
@@ -172,12 +174,12 @@ export function Board(props) {
                 ...panel,
                 taskIds: newTaskIds
             };
-        }));  
+        }));
     }
 
     const checkOffTask = taskId => {
         setTasks(tasks.map(task => {
-            if(task.id === taskId) {
+            if (task.id === taskId) {
                 return {
                     ...task,
                     checkedOff: task.checkedOff ? false : true
@@ -189,7 +191,7 @@ export function Board(props) {
 
     const updateTaskTitle = (title, id) => {
         setTasks(tasks.map(task => {
-            if(task.id === id) {
+            if (task.id === id) {
                 return {
                     ...task,
                     title: title
@@ -201,7 +203,7 @@ export function Board(props) {
 
     const updateTaskDescription = (description, id) => {
         setTasks(tasks.map(task => {
-            if(task.id === id) {
+            if (task.id === id) {
                 return {
                     ...task,
                     description: description
@@ -211,32 +213,40 @@ export function Board(props) {
         }))
     }
 
+    const sidebarToggle = () => {
+        setSidebarIsHidden(sidebarIsHidden ? false : true);
+    }
+
     return (
         <div id='Board'>
-            <div id='SizeController'>
-                <div id='NewPanelButton' onClick={handleAddPanel}>+</div>
-            </div>
-            <div className='Panels'>
-                {
-                    panels.map((panel, i) => {
-                        return <Panel
-                            panelId={panel.id}
-                            panelTitle={panel.title}
-                            taskIds={panel.taskIds}
-                            tasks={tasks}
-                            key={i}
-                            removePanel={removePanel}
-                            addTask={addTask}
-                            removeTask={removeTask}
-                            newTaskId={newTaskId}
-                            changePanelTitle={changePanelTitle}
-                            moveTask={moveTask}
-                            checkOffTask={checkOffTask}
-                            updateTaskTitle={updateTaskTitle}
-                            updateTaskDescription={updateTaskDescription}
-                        />
-                    })
-                }
+            <Header 
+                addPanel={addPanel}
+                sidebarToggle={sidebarToggle}
+            />
+            <div id='ContentDiv'>
+                <Sidebar isHidden={sidebarIsHidden}/>
+                <div className='Panels'>
+                    {
+                        panels.map((panel, i) => {
+                            return <Panel
+                                panelId={panel.id}
+                                panelTitle={panel.title}
+                                taskIds={panel.taskIds}
+                                tasks={tasks}
+                                key={i}
+                                removePanel={removePanel}
+                                addTask={addTask}
+                                removeTask={removeTask}
+                                newTaskId={newTaskId}
+                                changePanelTitle={changePanelTitle}
+                                moveTask={moveTask}
+                                checkOffTask={checkOffTask}
+                                updateTaskTitle={updateTaskTitle}
+                                updateTaskDescription={updateTaskDescription}
+                            />
+                        })
+                    }
+                </div>
             </div>
         </div>
     )

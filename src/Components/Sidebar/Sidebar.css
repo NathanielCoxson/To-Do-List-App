@@ -1,0 +1,27 @@
+#SidebarDiv {
+    transition: width 0.5s;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebarItem {
+    box-sizing: border-box;
+    width: 100%;
+    display: inline-flex;
+    justify-content: left;
+    align-content: center;
+    align-items: center;
+    height: 3em;
+    color: white;
+    background-color: #2e3532;
+}
+
+.sidebarItem span {
+    padding-left: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.sidebarItem span:hover {
+    cursor: pointer;
+}

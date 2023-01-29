@@ -1,9 +1,12 @@
+#Board {
+    width: 100%;
+}
+
 .Panels {
     display: inline-flex;
     justify-content: space-evenly;
     width: 100%;
     box-sizing: border-box;
-    margin: 1em 0;
 }
 
 #SizeController {
@@ -30,4 +33,10 @@
 
 #NewPanelButton:hover {
     cursor: pointer;
+}
+
+#ContentDiv {
+    display: inline-flex;
+    width: 100%;
+    margin: 1em 0;
 }
