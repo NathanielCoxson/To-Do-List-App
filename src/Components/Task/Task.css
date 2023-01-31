@@ -1,3 +1,11 @@
+/* TaskOuterDiv */
+#TaskOuterDiv {
+    padding-left: 5px;
+    padding-right: 5px;
+    /*transition: padding-top 0.5s, padding-bottom 0.5s;*/
+}
+
+/* TaskDiv */
 #TaskDiv {
     border: 1px solid black;
     border-radius: 1em;
@@ -6,9 +14,6 @@
     transition: box-shadow 0.5s, width 0.5s;
 }
 
-/* user-select partially fixes issue #28 but you can only
-    use double click to select and not drag select.
-*/
 #TaskDiv p {
     user-select: text;
 }
@@ -18,17 +23,12 @@
     margin-bottom: 0.5em;
 }
 
-#TaskOuterDiv {
-    padding-left: 5px;
-    padding-right: 5px;
-    /*transition: padding-top 0.5s, padding-bottom 0.5s;*/
-}
-
 #TaskDiv:hover {
     box-shadow: -2px 2px #162521;
     width: 100%;
 }
 
+/* Task Title */
 #TaskTitle {
     display: inline-flex;
     align-items: center;
@@ -42,6 +42,24 @@
     border-top-right-radius: 1em;
 }
 
+#TaskTitleForm{
+    width: 100%;
+}
+
+#TaskTitleInput {
+    background-color: transparent;
+    border: none;
+    font-size: larger;
+    font-weight: bold;
+    size: '';
+    width: 100%;
+}
+
+#TaskTitleInput:focus {
+    outline-style: none;
+}
+
+/* Close Button */
 .TaskCloseButton {
     width: 1em;
     height: 1em;
@@ -61,6 +79,7 @@
     cursor: pointer;
 }
 
+/* Content */
 #TaskContent {
     display: inline-flex;
     justify-content: space-between;
@@ -68,27 +87,6 @@
     padding: 0 1em;
     box-sizing: border-box;
     background-color: #e0e2db;
-}
-
-#TaskCheckoffButton {
-    display: inline-flex;
-    justify-content: right;
-    width: 100%;
-    padding: 0 1em 1em 1em;
-    box-sizing: border-box;
-    background-color: #e0e2db;
-    border-bottom-left-radius: 1em;
-    border-bottom-right-radius: 1em;
-}
-
-#TaskCheckoffButton span {
-    font-size: large;
-    font-weight: bold;
-    margin: 0;
-}
-
-#TaskCheckoffButton span:hover {
-    cursor: pointer;
 }
 
 #TaskContentForm {
@@ -109,22 +107,26 @@
     outline-style: groove;
 }
 
-#TaskTitleForm{
+/* Checkoff Button */
+#TaskCheckoffButton {
+    display: inline-flex;
+    justify-content: right;
     width: 100%;
+    padding: 0 1em 1em 1em;
+    box-sizing: border-box;
+    background-color: #e0e2db;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
 }
 
-#TaskTitleInput {
-    background-color: transparent;
-    border: none;
-    font-size: larger;
+#TaskCheckoffButton span {
+    font-size: large;
     font-weight: bold;
-    size: '';
-    width: 100%;
+    margin: 0;
 }
 
-#TaskTitleInput:focus {
-    outline-style: none;
+#TaskCheckoffButton span:hover {
+    cursor: pointer;
 }
-
 
 /* https://coolors.co/4f7cac-c0e0de-162521-3c474b-ece0d5 */
