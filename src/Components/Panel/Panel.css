@@ -1,3 +1,4 @@
+/* Main Div */
 #PanelDiv {
     display: inline-flex;
     flex-direction: column;
@@ -10,6 +11,12 @@
     background-color: #b4b7a4;
     height: fit-content;
     border-radius: 1em;
+}
+
+/* Panel Title */
+#PanelTitleDiv {
+    display: inline-flex;
+    justify-content: space-between;
 }
 
 .PanelTitle input {
@@ -32,11 +39,7 @@
     outline-style: groove;
 }
 
-#PanelTitleDiv {
-    display: inline-flex;
-    justify-content: space-between;
-}
-
+/* Close Button */
 .PanelCloseButton {
     width: 1em;
     height: 1em;
@@ -56,6 +59,7 @@
     cursor: pointer;
 }
 
+/* Add Task Button */
 .AddTaskButton {
     display: inline-flex;
     justify-content: right;
@@ -66,6 +70,7 @@
     cursor: pointer;
 }
 
+/* New Task Form */
 #NewTaskInputDiv {
     width: 100%;
     display: flex;

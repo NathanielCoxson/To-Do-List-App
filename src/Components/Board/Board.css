@@ -2,6 +2,14 @@
     width: 100%;
 }
 
+/* Main Content */
+#ContentDiv {
+    display: inline-flex;
+    width: 100%;
+    margin: 1em 0;
+}
+
+/* Panels */
 .Panels {
     display: inline-flex;
     justify-content: space-evenly;
@@ -9,34 +17,3 @@
     box-sizing: border-box;
 }
 
-#SizeController {
-    display: inline-flex;
-    box-sizing: border-box;
-    justify-content: right;
-    width: 100%;
-    padding-right: 1em;
-    padding-top: 1em;
-}
-
-#SizeController {
-    display: inline-flex;
-    box-sizing: border-box;
-    justify-content: right;
-    width: 100%;
-    padding-right: 1em;
-    padding-top: 1em;
-}
-
-#NewPanelButton {
-    font-size: 35px;
-}
-
-#NewPanelButton:hover {
-    cursor: pointer;
-}
-
-#ContentDiv {
-    display: inline-flex;
-    width: 100%;
-    margin: 1em 0;
-}
