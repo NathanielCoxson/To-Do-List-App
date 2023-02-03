@@ -1,9 +1,11 @@
+/* Main Div */
 #SidebarDiv {
     transition: width 0.5s;
     display: flex;
     flex-direction: column;
 }
 
+/* List Items */
 .sidebarItem {
     box-sizing: border-box;
     width: 100%;

@@ -1,3 +1,4 @@
+/* Main Div */
 #Header {
     display: inline-flex;
     box-sizing: border-box;
@@ -7,6 +8,7 @@
     padding: 1em;
 }
 
+/* New Panel Button */
 #NewPanelButton {
     font-size: 2.5em;
     color: white;
@@ -16,6 +18,7 @@
     cursor: pointer;
 }
 
+/* Side Panel Button */
 #SidePanelToggle {
     width: 1.75em;
     height: 100%;
