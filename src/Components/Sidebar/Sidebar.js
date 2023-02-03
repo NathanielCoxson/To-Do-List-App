@@ -4,9 +4,8 @@ import './Sidebar.css'
 export function Sidebar(props) {
     const { isHidden } = props;
     const exampleBoards = [
-        'Homework',
-        'Project 1',
-
+        // 'Homework',
+        // 'Project 1',
     ]
 
     useEffect(() => {
