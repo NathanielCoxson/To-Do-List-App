@@ -13,12 +13,23 @@ export function Board(props) {
                         {
                             id: 1,
                             title: 1,
-                            taskIds: [],
-                            newTaskId: 1
+                            taskIds: []
                         }
-                    ]
+                    ],
+                    tasks: [
+                        {
+                            id: 1,
+                            title: '',
+                            description: '',
+                            checkedOff: false
+                        }
+                    ],
+                    newPanelId: 1,
+                    panelCount: 1,
+                    newTaskId: 1
                 }
-            ]
+            ],
+            currentBoardId: 1
         }
     */
     if (!localStorage.getItem('userData')) {
@@ -33,13 +44,11 @@ export function Board(props) {
                     id: 1,
                     title: 1,
                     taskIds: [],
-                    newTaskId: 1
                 },
                 {
                     id: 2,
                     title: 2,
                     taskIds: [],
-                    newTaskId: 1
                 }
             ],
             tasks: [],
@@ -87,7 +96,6 @@ export function Board(props) {
                 id: id,
                 title: panelCount + 1,
                 taskIds: [],
-                newTaskId: 1
             }
         ]);
     }
@@ -120,7 +128,6 @@ export function Board(props) {
                         ...panel.taskIds,
                         id
                     ],
-                    newTaskId: panel.newTaskId + 1
                 };
             }
             return panel;
