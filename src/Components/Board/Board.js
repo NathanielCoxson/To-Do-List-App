@@ -9,6 +9,7 @@ export function Board(props) {
         {
             boards: [
                 {
+                    id: 1
                     panels: [
                         {
                             id: 1,
@@ -29,14 +30,30 @@ export function Board(props) {
                     newTaskId: 1
                 }
             ],
-            currentBoardId: 1
+            currentBoardId: 1,
+            newBoardId: 2,
         }
     */
     if (!localStorage.getItem('userData')) {
         localStorage.setItem('userData', JSON.stringify({
             boards: [
                 {
-
+                    panels: [
+                        {
+                            id: 1,
+                            title: 1,
+                            taskIds: [],
+                        },
+                        {
+                            id: 2,
+                            title: 2,
+                            taskIds: [],
+                        }
+                    ],
+                    tasks: [],
+                    newPanelId: 3,
+                    panelCount: 2,
+                    newTaskId: 1,
                 }
             ],
             panels: [
@@ -52,34 +69,51 @@ export function Board(props) {
                 }
             ],
             tasks: [],
-            panelId: 3,
+            newPanelId: 3,
             panelCount: 2,
             newTaskId: 1,
-
+            currentBoardId: 1,
         }));
     }
     const [sidebarIsHidden, setSidebarIsHidden] = useState(true);
-    //const [currentBoardId, setCurrentBoardId] = useState();
+    const [currentBoardId, setCurrentBoardId] = useState(localStorage.getItem('userData').currentBoardId);
     /* Panel State */
-    const [panels, setPanels] = useState(JSON.parse(localStorage.getItem('userData')).panels);
-    //Change id and all references to it to newPanelId since that is what this variable is used for.
-    const [id, setId] = useState(JSON.parse(localStorage.getItem('userData')).panelId);
-    const [panelCount, setPanelCount] = useState(localStorage.getItem('userData'.panelCount));
-    const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem('userData')).tasks);
-    const [newTaskId, setNewTaskId] = useState(JSON.parse(localStorage.getItem('userData')).newTaskId);
+    const [panels, setPanels] = useState(JSON.parse(localStorage.getItem('userData')).boards[currentBoardId].panels);
+    const [newPanelId, setNewPanelId] = useState(JSON.parse(localStorage.getItem('userData')).boards[currentBoardId].newPanelId);
+    const [panelCount, setPanelCount] = useState(JSON.parse(localStorage.getItem('userData')).boards[currentBoardId].panelCount);
+    const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem('userData')).boards[currentBoardId].tasks);
+    const [newTaskId, setNewTaskId] = useState(JSON.parse(localStorage.getItem('userData')).boards[currentBoardId].newTaskId);
 
     useEffect(() => {
         localStorage.setItem('userData', JSON.stringify({
             panels: panels,
-            panelId: id,
+            newPanelId: newPanelId,
             panelCount: panels.length,
             tasks: tasks,
             newTaskId: newTaskId
         }));
+        //Trying to change the way that userData is updated so that only a 
+        //specific board is actually changed when the current panels change.
+        localStorage.setItem('userData', JSON.stringify({
+            ...JSON.parse(localStorage.getItem('userData')),
+            boards: boards.map(board => {
+                if(board.id === currentBoardId) {
+                    //make change
+                    return {
+                        panels: panels,
+                        newPanelId: newPanelId,
+                        panelCount: panels.length,
+                        tasks: tasks,
+                        newTaskId: newTaskId,
+                    }
+                }
+                return board;
+            }),
+        }));
         setPanelCount(panels.length);
-        //console.log(localStorage.getItem('userData'));
+        console.log(localStorage.getItem('userData'));
         //console.log(JSON.parse(localStorage.getItem('userData')).tasks);
-    }, [panels, id, tasks, newTaskId]);
+    }, [panels, newPanelId, tasks, newTaskId]);
 
     useEffect(() => {
         let elements = document.getElementsByClassName('taskDescriptionTextarea');
@@ -90,15 +124,15 @@ export function Board(props) {
     });
 
     const addPanel = () => {
-        setId(id + 1);
         setPanels([
             ...panels,
             {
-                id: id,
+                id: newPanelId,
                 title: panelCount + 1,
                 taskIds: [],
             }
         ]);
+        setNewPanelId(newPanelId + 1);
     }
 
     const removePanel = (panelId) => {
