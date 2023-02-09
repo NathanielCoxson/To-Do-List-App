@@ -27,3 +27,25 @@
 .sidebarItem span:hover {
     cursor: pointer;
 }
+
+/* Add Pannel Button */
+#AddPanelButton {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+    height: 3em;
+    padding-left: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#AddPanelButton span {
+    font-size: 2.5em;
+    color: white;
+}
+
+#AddPanelButton span:hover {
+    cursor: pointer;
+}

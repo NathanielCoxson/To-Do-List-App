@@ -5,34 +5,67 @@ import { Sidebar } from '../Sidebar/Sidebar';
 import { Header } from '../Header/Header';
 
 export function Board(props) {
+    /*
+        {
+            boards: [
+                {
+                    panels: [
+                        {
+                            id: 1,
+                            title: 1,
+                            taskIds: []
+                        }
+                    ],
+                    tasks: [
+                        {
+                            id: 1,
+                            title: '',
+                            description: '',
+                            checkedOff: false
+                        }
+                    ],
+                    newPanelId: 1,
+                    panelCount: 1,
+                    newTaskId: 1
+                }
+            ],
+            currentBoardId: 1
+        }
+    */
     if (!localStorage.getItem('userData')) {
         localStorage.setItem('userData', JSON.stringify({
+            boards: [
+                {
+
+                }
+            ],
             panels: [
                 {
                     id: 1,
                     title: 1,
                     taskIds: [],
-                    newTaskId: 1
                 },
                 {
                     id: 2,
                     title: 2,
                     taskIds: [],
-                    newTaskId: 1
                 }
             ],
             tasks: [],
             panelId: 3,
             panelCount: 2,
-            newTaskId: 1
+            newTaskId: 1,
+
         }));
     }
+    const [sidebarIsHidden, setSidebarIsHidden] = useState(true);
+    //const [currentBoardId, setCurrentBoardId] = useState();
+    /* Panel State */
     const [panels, setPanels] = useState(JSON.parse(localStorage.getItem('userData')).panels);
     const [id, setId] = useState(JSON.parse(localStorage.getItem('userData')).panelId);
     const [panelCount, setPanelCount] = useState(localStorage.getItem('userData'.panelCount));
     const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem('userData')).tasks);
     const [newTaskId, setNewTaskId] = useState(JSON.parse(localStorage.getItem('userData')).newTaskId);
-    const [sidebarIsHidden, setSidebarIsHidden] = useState(true);
 
     useEffect(() => {
         localStorage.setItem('userData', JSON.stringify({
@@ -63,7 +96,6 @@ export function Board(props) {
                 id: id,
                 title: panelCount + 1,
                 taskIds: [],
-                newTaskId: 1
             }
         ]);
     }
@@ -96,7 +128,6 @@ export function Board(props) {
                         ...panel.taskIds,
                         id
                     ],
-                    newTaskId: panel.newTaskId + 1
                 };
             }
             return panel;
@@ -217,6 +248,14 @@ export function Board(props) {
         setSidebarIsHidden(sidebarIsHidden ? false : true);
     }
 
+    // function addBoard() {
+
+    // }
+
+    // function changeCurrentBoard(id) {
+
+    // }
+
     return (
         <div id='Board'>
             <Header 
@@ -224,7 +263,10 @@ export function Board(props) {
                 sidebarToggle={sidebarToggle}
             />
             <div id='ContentDiv'>
-                <Sidebar isHidden={sidebarIsHidden}/>
+                <Sidebar 
+                    isHidden={sidebarIsHidden}
+                    // addBoard={addBoard}
+                />
                 <div className='Panels'>
                     {
                         panels.map((panel, i) => {

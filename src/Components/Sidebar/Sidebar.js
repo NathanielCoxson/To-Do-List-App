@@ -19,6 +19,10 @@ export function Sidebar(props) {
         }
     }, [isHidden]);
 
+    function handleAddBoard(event) {
+        // addBoard()
+    }
+
     return (
         <div id='SidebarDiv'>
             {
@@ -30,6 +34,12 @@ export function Sidebar(props) {
                     );
                 })
             }
+            <div 
+                id='AddPanelButton' 
+                onClick={handleAddBoard}
+            >
+                <span>+</span>
+            </div>
         </div>
     );
 }
