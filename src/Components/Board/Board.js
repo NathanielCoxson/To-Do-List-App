@@ -59,7 +59,7 @@ export function Board(props) {
         }));
     }
     const [sidebarIsHidden, setSidebarIsHidden] = useState(true);
-    const [currentBoardId, setCurrentBoardId] = useState();
+    //const [currentBoardId, setCurrentBoardId] = useState();
     /* Panel State */
     const [panels, setPanels] = useState(JSON.parse(localStorage.getItem('userData')).panels);
     const [id, setId] = useState(JSON.parse(localStorage.getItem('userData')).panelId);
@@ -248,13 +248,13 @@ export function Board(props) {
         setSidebarIsHidden(sidebarIsHidden ? false : true);
     }
 
-    function addBoard() {
+    // function addBoard() {
 
-    }
+    // }
 
-    function changeCurrentBoard(id) {
+    // function changeCurrentBoard(id) {
 
-    }
+    // }
 
     return (
         <div id='Board'>
@@ -265,7 +265,7 @@ export function Board(props) {
             <div id='ContentDiv'>
                 <Sidebar 
                     isHidden={sidebarIsHidden}
-                    addBoard={addBoard}
+                    // addBoard={addBoard}
                 />
                 <div className='Panels'>
                     {

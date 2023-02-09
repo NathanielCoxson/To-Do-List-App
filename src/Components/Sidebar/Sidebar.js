@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import './Sidebar.css'
 
 export function Sidebar(props) {
-    const { isHidden, addBoard } = props;
+    const { isHidden } = props;
     const exampleBoards = [
         // 'Homework',
         // 'Project 1',
@@ -20,7 +20,7 @@ export function Sidebar(props) {
     }, [isHidden]);
 
     function handleAddBoard(event) {
-        addBoard()
+        // addBoard()
     }
 
     return (
