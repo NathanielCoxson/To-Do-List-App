@@ -62,6 +62,7 @@ export function Board(props) {
     //const [currentBoardId, setCurrentBoardId] = useState();
     /* Panel State */
     const [panels, setPanels] = useState(JSON.parse(localStorage.getItem('userData')).panels);
+    //Change id and all references to it to newPanelId since that is what this variable is used for.
     const [id, setId] = useState(JSON.parse(localStorage.getItem('userData')).panelId);
     const [panelCount, setPanelCount] = useState(localStorage.getItem('userData'.panelCount));
     const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem('userData')).tasks);
