@@ -5,36 +5,9 @@ import { Sidebar } from '../Sidebar/Sidebar';
 import { Header } from '../Header/Header';
 
 export function Board(props) {
-    /*
-        {
-            boards: [
-                {
-                    id: 1
-                    panels: [
-                        {
-                            id: 1,
-                            title: 1,
-                            taskIds: []
-                        }
-                    ],
-                    tasks: [
-                        {
-                            id: 1,
-                            title: '',
-                            description: '',
-                            checkedOff: false
-                        }
-                    ],
-                    newPanelId: 1,
-                    panelCount: 1,
-                    newTaskId: 1
-                }
-            ],
-            currentBoardId: 1,
-            newBoardId: 2,
-        }
-    */
-    if (!localStorage.getItem('userData')) {
+    // Get userData or set to default if not found.
+    let userData = JSON.parse(localStorage.getItem('userData'));
+    if (!userData) {
         localStorage.setItem('userData', JSON.stringify({
             boards: [
                 {
@@ -54,66 +27,47 @@ export function Board(props) {
                     newPanelId: 3,
                     panelCount: 2,
                     newTaskId: 1,
-                }
-            ],
-            panels: [
-                {
                     id: 1,
-                    title: 1,
-                    taskIds: [],
-                },
-                {
-                    id: 2,
-                    title: 2,
-                    taskIds: [],
                 }
             ],
-            tasks: [],
-            newPanelId: 3,
-            panelCount: 2,
-            newTaskId: 1,
             currentBoardId: 1,
+            newBoardId: 2,
         }));
+        userData = JSON.parse(localStorage.getItem('userData'));
     }
-    const [sidebarIsHidden, setSidebarIsHidden] = useState(true);
-    const [currentBoardId, setCurrentBoardId] = useState(localStorage.getItem('userData').currentBoardId);
-    /* Panel State */
-    const [panels, setPanels] = useState(JSON.parse(localStorage.getItem('userData')).boards[currentBoardId].panels);
-    const [newPanelId, setNewPanelId] = useState(JSON.parse(localStorage.getItem('userData')).boards[currentBoardId].newPanelId);
-    const [panelCount, setPanelCount] = useState(JSON.parse(localStorage.getItem('userData')).boards[currentBoardId].panelCount);
-    const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem('userData')).boards[currentBoardId].tasks);
-    const [newTaskId, setNewTaskId] = useState(JSON.parse(localStorage.getItem('userData')).boards[currentBoardId].newTaskId);
 
+    // App State
+    const [sidebarIsHidden, setSidebarIsHidden] = useState(true);
+    const [boards] = useState(userData.boards);
+    const [currentBoardId] = useState(userData.currentBoardId);
+    // const [newBoardId, setNewBoardId] = useState(userData.newBoardId);
+
+    // Individual Board State
+    const [panels, setPanels] = useState(userData.boards.find(board => board.id === currentBoardId).panels || {});
+    const [newPanelId, setNewPanelId] = useState(userData.boards.find(board => board.id === currentBoardId).newPanelId);
+    const [panelCount, setPanelCount] = useState(userData.boards.find(board => board.id === currentBoardId).panelCount);
+    const [tasks, setTasks] = useState(userData.boards.find(board => board.id === currentBoardId).tasks);
+    const [newTaskId, setNewTaskId] = useState(userData.boards.find(board => board.id === currentBoardId).newTaskId);
+
+    // Update localStorage any time state changes
     useEffect(() => {
         localStorage.setItem('userData', JSON.stringify({
-            panels: panels,
-            newPanelId: newPanelId,
-            panelCount: panels.length,
-            tasks: tasks,
-            newTaskId: newTaskId
-        }));
-        //Trying to change the way that userData is updated so that only a 
-        //specific board is actually changed when the current panels change.
-        localStorage.setItem('userData', JSON.stringify({
-            ...JSON.parse(localStorage.getItem('userData')),
             boards: boards.map(board => {
                 if(board.id === currentBoardId) {
-                    //make change
                     return {
+                        ...board,
                         panels: panels,
-                        newPanelId: newPanelId,
-                        panelCount: panels.length,
                         tasks: tasks,
+                        newPanelId: newPanelId,
+                        panelCount: panelCount,
                         newTaskId: newTaskId,
                     }
                 }
                 return board;
             }),
+            currentBoardId: currentBoardId,
         }));
-        setPanelCount(panels.length);
-        console.log(localStorage.getItem('userData'));
-        //console.log(JSON.parse(localStorage.getItem('userData')).tasks);
-    }, [panels, newPanelId, tasks, newTaskId]);
+    }, [panels, newPanelId, tasks, newTaskId, boards, currentBoardId, panelCount]);
 
     useEffect(() => {
         let elements = document.getElementsByClassName('taskDescriptionTextarea');
@@ -133,6 +87,7 @@ export function Board(props) {
             }
         ]);
         setNewPanelId(newPanelId + 1);
+        setPanelCount(panelCount + 1);
     }
 
     const removePanel = (panelId) => {
@@ -151,23 +106,23 @@ export function Board(props) {
         }));
         //Delete the panel from the list of panels.
         setPanels(panels.filter(panel => panel.id !== panelId));
-
+        setPanelCount(panelCount - 1);
     }
 
-    const addTask = (panelId, id, title, description) => {
+    const addTask = (panelId, title, description) => {
         setPanels(panels.map(panel => {
             if (panel.id === panelId) {
                 return {
                     ...panel,
                     taskIds: [
                         ...panel.taskIds,
-                        id
+                        newTaskId
                     ],
                 };
             }
             return panel;
         }));
-        setTasks([...tasks, { id, title, description, checkedOff: false }]);
+        setTasks([...tasks, { id: newTaskId, title: title, description: description, checkedOff: false }]);
         setNewTaskId(newTaskId + 1);
     }
 
