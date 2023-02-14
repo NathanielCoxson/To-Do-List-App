@@ -16,7 +16,6 @@ export function Panel(props) {
         event.preventDefault();
         props.addTask(
             panelId,
-            JSON.parse(localStorage.getItem('userData')).newTaskId, 
             event.target.title.value,
             event.target.description.value
         )
