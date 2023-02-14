@@ -49,6 +49,11 @@ export function Board(props) {
     const [tasks, setTasks] = useState(userData.boards.find(board => board.id === currentBoardId).tasks);
     const [newTaskId, setNewTaskId] = useState(userData.boards.find(board => board.id === currentBoardId).newTaskId);
 
+    /*
+        Maybe store userData as state and only have one hook that depends on userData,
+        then change any update to state variables to instead update userData.
+    */
+
     // Update localStorage any time state changes
     useEffect(() => {
         localStorage.setItem('userData', JSON.stringify({
