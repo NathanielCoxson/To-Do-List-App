@@ -67,7 +67,7 @@ export function Board(props) {
                 return board;
             }),
         }));
-    }, [panels, newPanelId, tasks, newTaskId, panelCount]);
+    }, [panels, newPanelId, tasks, newTaskId, panelCount, boards, currentBoardId]);
 
     // Switch between boards
     useEffect(() => {
@@ -89,7 +89,7 @@ export function Board(props) {
         setPanelCount(b.panelCount);
         setTasks(b.tasks);
         setNewTaskId(b.newTaskId);
-    }, [currentBoardId])
+    }, [currentBoardId, boards])
 
     useEffect(() => {
         let elements = document.getElementsByClassName('taskDescriptionTextarea');
