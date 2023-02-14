@@ -2,11 +2,7 @@ import { useEffect } from 'react';
 import './Sidebar.css'
 
 export function Sidebar(props) {
-    const { isHidden } = props;
-    const exampleBoards = [
-        // 'Homework',
-        // 'Project 1',
-    ]
+    const { isHidden, addBoard, boards, changeCurrentBoard } = props;
 
     useEffect(() => {
         if (isHidden) {
@@ -20,16 +16,20 @@ export function Sidebar(props) {
     }, [isHidden]);
 
     function handleAddBoard(event) {
-        // addBoard()
+        addBoard();
+    }
+
+    function handleSwitchBoard(event) {
+        changeCurrentBoard(Number(event.target.id));
     }
 
     return (
         <div id='SidebarDiv'>
             {
-                exampleBoards.map((title, i) => {
+                boards.map((board, i) => {
                     return (
                         <div className='sidebarItem' key={i} >
-                            <span>{title}</span>
+                            <span onClick={handleSwitchBoard} id={board.id}>{board.id}</span>
                         </div>
                     );
                 })

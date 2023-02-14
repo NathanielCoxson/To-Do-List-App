@@ -38,12 +38,12 @@ export function Board(props) {
 
     // App State
     const [sidebarIsHidden, setSidebarIsHidden] = useState(true);
-    const [boards] = useState(userData.boards);
-    const [currentBoardId] = useState(userData.currentBoardId);
-    // const [newBoardId, setNewBoardId] = useState(userData.newBoardId);
+    const [boards, setBoards] = useState(userData.boards);
+    const [currentBoardId, setCurrentBoardId] = useState(userData.currentBoardId);
+    const [newBoardId, setNewBoardId] = useState(userData.newBoardId);
 
     // Individual Board State
-    const [panels, setPanels] = useState(userData.boards.find(board => board.id === currentBoardId).panels || {});
+    const [panels, setPanels] = useState(userData.boards.find(board => board.id === currentBoardId).panels);
     const [newPanelId, setNewPanelId] = useState(userData.boards.find(board => board.id === currentBoardId).newPanelId);
     const [panelCount, setPanelCount] = useState(userData.boards.find(board => board.id === currentBoardId).panelCount);
     const [tasks, setTasks] = useState(userData.boards.find(board => board.id === currentBoardId).tasks);
@@ -52,6 +52,7 @@ export function Board(props) {
     // Update localStorage any time state changes
     useEffect(() => {
         localStorage.setItem('userData', JSON.stringify({
+            ...JSON.parse(localStorage.getItem('userData')),
             boards: boards.map(board => {
                 if(board.id === currentBoardId) {
                     return {
@@ -65,9 +66,30 @@ export function Board(props) {
                 }
                 return board;
             }),
+        }));
+    }, [panels, newPanelId, tasks, newTaskId, panelCount]);
+
+    // Switch between boards
+    useEffect(() => {
+        localStorage.setItem('userData', JSON.stringify({
+            ...JSON.parse(localStorage.getItem('userData')),
+            boards: boards,
+            newBoardId: newBoardId,
+        }));
+    }, [boards, newBoardId]);
+
+    useEffect(() => {
+        localStorage.setItem('userData', JSON.stringify({
+            ...JSON.parse(localStorage.getItem('userData')),
             currentBoardId: currentBoardId,
         }));
-    }, [panels, newPanelId, tasks, newTaskId, boards, currentBoardId, panelCount]);
+        let b = boards.find(board => board.id === currentBoardId);
+        setPanels(b.panels);
+        setNewPanelId(b.newPanelId);
+        setPanelCount(b.panelCount);
+        setTasks(b.tasks);
+        setNewTaskId(b.newTaskId);
+    }, [currentBoardId])
 
     useEffect(() => {
         let elements = document.getElementsByClassName('taskDescriptionTextarea');
@@ -238,13 +260,34 @@ export function Board(props) {
         setSidebarIsHidden(sidebarIsHidden ? false : true);
     }
 
-    // function addBoard() {
+    function addBoard() {
+        setBoards([...boards,
+            {
+                panels: [
+                    {
+                        id: 1,
+                        title: 1,
+                        taskIds: [],
+                    },
+                    {
+                        id: 2,
+                        title: 2,
+                        taskIds: [],
+                    }
+                ],
+                tasks: [],
+                newPanelId: 3,
+                panelCount: 2,
+                newTaskId: 1,
+                id: newBoardId,
+            }
+        ]);
+        setNewBoardId(newBoardId + 1);
+    }
 
-    // }
-
-    // function changeCurrentBoard(id) {
-
-    // }
+    function changeCurrentBoard(id) {
+        setCurrentBoardId(id);
+    }
 
     return (
         <div id='Board'>
@@ -254,8 +297,10 @@ export function Board(props) {
             />
             <div id='ContentDiv'>
                 <Sidebar 
+                    boards={boards}
                     isHidden={sidebarIsHidden}
-                    // addBoard={addBoard}
+                    addBoard={addBoard}
+                    changeCurrentBoard={changeCurrentBoard}
                 />
                 <div className='Panels'>
                     {
