@@ -35,6 +35,9 @@ export function Sidebar(props) {
 
     return (
         <div id='SidebarDiv'>
+            <div className='sidebarItem sidebarTitle' >
+                <span>Boards</span>
+            </div>
             {
                 boards.map((board, i) => {
                     return (
@@ -43,7 +46,7 @@ export function Sidebar(props) {
                                 className='sidebarEntryTitle' 
                                 onClick={handleSwitchBoard} 
                                 id={board.id}>
-                                    {board.id}
+                                    {board.title}
                             </span>
                             <span 
                                 className='deleteBoardButton'

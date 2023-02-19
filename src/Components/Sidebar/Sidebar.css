@@ -63,3 +63,8 @@
     cursor: pointer;
     color: red;
 }
+
+.sidebarTitle span {
+    font-size: 2em;
+    font-weight: bold;
+}

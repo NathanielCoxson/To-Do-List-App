@@ -11,6 +11,7 @@ export function Board(props) {
         localStorage.setItem('userData', JSON.stringify({
             boards: [
                 {
+                    title: 1,
                     panels: [
                         {
                             id: 1,
@@ -32,6 +33,7 @@ export function Board(props) {
             ],
             currentBoardId: 1,
             newBoardId: 2,
+            boardCount: 1,
         }));
         checkUserData = JSON.parse(localStorage.getItem('userData'));
     }
@@ -336,6 +338,7 @@ export function Board(props) {
             boards: [
                 ...userData.boards,
                 {
+                    title: userData.boardCount + 1,
                     panels: [
                         {
                             id: 1,
@@ -355,15 +358,24 @@ export function Board(props) {
                     id: userData.newBoardId,
                 }
             ],
-            newBoardId: userData.newBoardId + 1
+            newBoardId: userData.newBoardId + 1,
+            boardCount: userData.boardCount + 1,
         });
     }
 
     function deleteBoard(id) {
         let newBoardId = 0;
+        // If the current board is the one being removed, change boards.
         if (userData.currentBoardId === id && userData.boards.length > 1) {
-            newBoardId = userData.boards[userData.boards.length - 2].id;
+            // Get first board from the end that isn't the one being removed.
+            for (let i = userData.boards.length - 1; i >= 0; i--) {
+                if (userData.boards[i].id !== id) {
+                    newBoardId = userData.boards[i].id;
+                    break;
+                }
+            }
         }
+        // If current board isn't the one being removed, just keep it.
         else if (userData.currentBoardId !== id) {
             newBoardId = userData.currentBoardId;
         }
@@ -371,6 +383,7 @@ export function Board(props) {
             ...userData,
             boards: userData.boards.filter(board => board.id !== id),
             currentBoardId: newBoardId,
+            boardCount: userData.boardCount - 1,
         });
     }
 
