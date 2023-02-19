@@ -29,7 +29,11 @@ export function Sidebar(props) {
                 boards.map((board, i) => {
                     return (
                         <div className='sidebarItem' key={i} >
-                            <span onClick={handleSwitchBoard} id={board.id}>{board.id}</span>
+                            <span 
+                                onClick={handleSwitchBoard} 
+                                id={board.id}>
+                                    {board.id}
+                            </span>
                         </div>
                     );
                 })

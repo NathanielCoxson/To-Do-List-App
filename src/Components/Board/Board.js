@@ -6,8 +6,8 @@ import { Header } from '../Header/Header';
 
 export function Board(props) {
     // Get userData or set to default if not found.
-    let userData = JSON.parse(localStorage.getItem('userData'));
-    if (!userData) {
+    let checkUserData = JSON.parse(localStorage.getItem('userData'));
+    if (!checkUserData) {
         localStorage.setItem('userData', JSON.stringify({
             boards: [
                 {
@@ -33,70 +33,18 @@ export function Board(props) {
             currentBoardId: 1,
             newBoardId: 2,
         }));
-        userData = JSON.parse(localStorage.getItem('userData'));
+        checkUserData = JSON.parse(localStorage.getItem('userData'));
     }
 
-    const [data, setData] = useState(JSON.parse(localStorage.getItem('userData')));
+    /* 
+        Boards need a title key
+        Title key needs to be set on creation and/or editable after creation
+        Needs to update in localStorage any time the title is updated
+    */
 
     // // App State
     const [sidebarIsHidden, setSidebarIsHidden] = useState(true);
-    // const [boards, setBoards] = useState(userData.boards);
-    // const [currentBoardId, setCurrentBoardId] = useState(userData.currentBoardId);
-    // const [newBoardId, setNewBoardId] = useState(userData.newBoardId);
-
-    // // Individual Board State
-    // const [panels, setPanels] = useState(userData.boards.find(board => board.id === currentBoardId).panels);
-    // const [newPanelId, setNewPanelId] = useState(userData.boards.find(board => board.id === currentBoardId).newPanelId);
-    // const [panelCount, setPanelCount] = useState(userData.boards.find(board => board.id === currentBoardId).panelCount);
-    // const [tasks, setTasks] = useState(userData.boards.find(board => board.id === currentBoardId).tasks);
-    // const [newTaskId, setNewTaskId] = useState(userData.boards.find(board => board.id === currentBoardId).newTaskId);
-
-    /*
-        Maybe store userData as state and only have one hook that depends on userData,
-        then change any update to state variables to instead update userData.
-    */
-
-    // Update localStorage any time state changes
-    // useEffect(() => {
-    //     localStorage.setItem('userData', JSON.stringify({
-    //         ...JSON.parse(localStorage.getItem('userData')),
-    //         boards: boards.map(board => {
-    //             if(board.id === currentBoardId) {
-    //                 return {
-    //                     ...board,
-    //                     panels: panels,
-    //                     tasks: tasks,
-    //                     newPanelId: newPanelId,
-    //                     panelCount: panelCount,
-    //                     newTaskId: newTaskId,
-    //                 }
-    //             }
-    //             return board;
-    //         }),
-    //     }));
-    // }, [panels, newPanelId, tasks, newTaskId, panelCount, boards, currentBoardId]);
-
-    // // Switch between boards
-    // useEffect(() => {
-    //     localStorage.setItem('userData', JSON.stringify({
-    //         ...JSON.parse(localStorage.getItem('userData')),
-    //         boards: boards,
-    //         newBoardId: newBoardId,
-    //     }));
-    // }, [boards, newBoardId]);
-
-    // useEffect(() => {
-    //     localStorage.setItem('userData', JSON.stringify({
-    //         ...JSON.parse(localStorage.getItem('userData')),
-    //         currentBoardId: currentBoardId,
-    //     }));
-    //     let b = boards.find(board => board.id === currentBoardId);
-    //     setPanels(b.panels);
-    //     setNewPanelId(b.newPanelId);
-    //     setPanelCount(b.panelCount);
-    //     setTasks(b.tasks);
-    //     setNewTaskId(b.newTaskId);
-    // }, [currentBoardId, boards])
+    const [userData, setData] = useState(JSON.parse(localStorage.getItem('userData')));
 
     useEffect(() => {
         let elements = document.getElementsByClassName('taskDescriptionTextarea');
@@ -108,14 +56,14 @@ export function Board(props) {
 
     // NEW EFFECT HOOK
     useEffect(() => {
-        localStorage.setItem('userData', JSON.stringify(data));
-    }, [data]);
+        localStorage.setItem('userData', JSON.stringify(userData));
+    }, [userData]);
 
     const addPanel = () => {
         setData({
-            ...data,
-            boards: data.boards.map(board => {
-                if (board.id === data.currentBoardId) {
+            ...userData,
+            boards: userData.boards.map(board => {
+                if (board.id === userData.currentBoardId) {
                     return {
                         ...board,
                         panels: [
@@ -136,15 +84,15 @@ export function Board(props) {
     }
 
     const removePanel = (panelId) => {
-        const board = data.boards.find(board => board.id === data.currentBoardId);
+        const board = userData.boards.find(board => board.id === userData.currentBoardId);
         //Get the list of task ids kept by the panel right before deletion
         //so that they can be remove from tasks first.
         const taskIds = board.panels.find(panel => panel.id === panelId).taskIds;
 
         setData({
-            ...data,
-            boards: data.boards.map(board => {
-                if (board.id === data.currentBoardId) {
+            ...userData,
+            boards: userData.boards.map(board => {
+                if (board.id === userData.currentBoardId) {
                     return {
                         ...board,
                         //Delete the panel from the list of panels.
@@ -170,9 +118,9 @@ export function Board(props) {
 
     const addTask = (panelId, title, description) => {
         setData({
-            ...data,
-            boards: data.boards.map(board => {
-                if (board.id === data.currentBoardId) {
+            ...userData,
+            boards: userData.boards.map(board => {
+                if (board.id === userData.currentBoardId) {
                     return {
                         ...board,
                         panels: board.panels.map(panel => {
@@ -206,9 +154,9 @@ export function Board(props) {
 
     const removeTask = (panelId, taskId) => {
         setData({
-            ...data,
-            boards: data.boards.map(board => {
-                if (board.id === data.currentBoardId) {
+            ...userData,
+            boards: userData.boards.map(board => {
+                if (board.id === userData.currentBoardId) {
                     return {
                         ...board,
                         panels: board.panels.map(panel => {
@@ -230,9 +178,9 @@ export function Board(props) {
 
     const changePanelTitle = (panelId, newTitle) => {
         setData({
-            ...data,
-            boards: data.boards.map(board => {
-                if (board.id === data.currentBoardId) {
+            ...userData,
+            boards: userData.boards.map(board => {
+                if (board.id === userData.currentBoardId) {
                     return {
                         ...board,
                         panels: board.panels.map(panel => {
@@ -268,9 +216,9 @@ export function Board(props) {
     */
     const moveTask = (taskMove) => {
         setData({
-            ...data,
-            boards: data.boards.map(board => {
-                if (board.id === data.currentBoardId) {
+            ...userData,
+            boards: userData.boards.map(board => {
+                if (board.id === userData.currentBoardId) {
                     return {
                         ...board,
                         panels: board.panels.map(panel => {
@@ -311,9 +259,9 @@ export function Board(props) {
 
     const checkOffTask = taskId => {
         setData({
-            ...data,
-            boards: data.boards.map(board => {
-                if (board.id === data.currentBoardId) {
+            ...userData,
+            boards: userData.boards.map(board => {
+                if (board.id === userData.currentBoardId) {
                     return {
                         ...board,
                         tasks: board.tasks.map(task => {
@@ -334,9 +282,9 @@ export function Board(props) {
 
     const updateTaskTitle = (title, id) => {
         setData({
-            ...data,
-            boards: data.boards.map(board => {
-                if (board.id === data.currentBoardId) {
+            ...userData,
+            boards: userData.boards.map(board => {
+                if (board.id === userData.currentBoardId) {
                     return {
                         ...board,
                         tasks: board.tasks.map(task => {
@@ -357,9 +305,9 @@ export function Board(props) {
 
     const updateTaskDescription = (description, id) => {
         setData({
-            ...data,
-            boards: data.boards.map(board => {
-                if (board.id === data.currentBoardId) {
+            ...userData,
+            boards: userData.boards.map(board => {
+                if (board.id === userData.currentBoardId) {
                     return {
                         ...board,
                         tasks: board.tasks.map(task => {
@@ -384,9 +332,9 @@ export function Board(props) {
 
     function addBoard() {
         setData({
-            ...data,
+            ...userData,
             boards: [
-                ...data.boards,
+                ...userData.boards,
                 {
                     panels: [
                         {
@@ -404,16 +352,16 @@ export function Board(props) {
                     newPanelId: 3,
                     panelCount: 2,
                     newTaskId: 1,
-                    id: data.newBoardId,
+                    id: userData.newBoardId,
                 }
             ],
-            newBoardId: data.newBoardId + 1
+            newBoardId: userData.newBoardId + 1
         });
     }
 
     function changeCurrentBoard(id) {
         setData({
-            ...data,
+            ...userData,
             currentBoardId: id
         });
     }
@@ -426,24 +374,24 @@ export function Board(props) {
             />
             <div id='ContentDiv'>
                 <Sidebar 
-                    boards={data.boards}
+                    boards={userData.boards}
                     isHidden={sidebarIsHidden}
                     addBoard={addBoard}
                     changeCurrentBoard={changeCurrentBoard}
                 />
                 <div className='Panels'>
                     {
-                        data.boards.find(board => board.id === data.currentBoardId).panels.map((panel, i) => {
+                        userData.boards.find(board => board.id === userData.currentBoardId).panels.map((panel, i) => {
                             return <Panel
                                 panelId={panel.id}
                                 panelTitle={panel.title}
                                 taskIds={panel.taskIds}
-                                tasks={data.boards.find(board => board.id === data.currentBoardId).tasks}
+                                tasks={userData.boards.find(board => board.id === userData.currentBoardId).tasks}
                                 key={i}
                                 removePanel={removePanel}
                                 addTask={addTask}
                                 removeTask={removeTask}
-                                newTaskId={data.boards.find(board => board.id === data.currentBoardId).newTaskId}
+                                newTaskId={userData.boards.find(board => board.id === userData.currentBoardId).newTaskId}
                                 changePanelTitle={changePanelTitle}
                                 moveTask={moveTask}
                                 checkOffTask={checkOffTask}
