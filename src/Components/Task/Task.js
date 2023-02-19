@@ -94,9 +94,9 @@ export function Task(props) {
                     onDragStart={dragstart_handler}
                 >
                     {props.checkedOff ? 
-                        <form id='TaskTitleForm'>
+                        <form className='TaskTitleForm'>
                             <input 
-                                id='TaskTitleInput'
+                                className='TaskTitleInput'
                                 type='text'
                                 name='title'
                                 onChange={handleTitleInput}
@@ -104,9 +104,9 @@ export function Task(props) {
                                 style={{textDecoration: 'line-through'}}
                             ></input>
                         </form> :
-                        <form id='TaskTitleForm'>
+                        <form className='TaskTitleForm'>
                             <input 
-                                id='TaskTitleInput'
+                                className='TaskTitleInput'
                                 type='text'
                                 name='title'
                                 onChange={handleTitleInput}
@@ -117,9 +117,9 @@ export function Task(props) {
                     <div className='TaskCloseButton' onClick={handleRemoval}><span>X</span></div>
                 </div>
                 
-                <div id='TaskContent'>
+                <div className='TaskContent'>
                     {props.checkedOff ?
-                        <form id='TaskContentForm'>
+                        <form className='TaskContentForm'>
                             <textarea  
                                 className='taskDescriptionTextarea' 
                                 type='text'
@@ -129,7 +129,7 @@ export function Task(props) {
                                 style={{textDecoration: 'line-through'}}
                             ></textarea>
                         </form> :
-                        <form id='TaskContentForm'>
+                        <form className='TaskContentForm'>
                             <textarea
                                 className='taskDescriptionTextarea' 
                                 type='text'

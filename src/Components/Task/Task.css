@@ -42,20 +42,20 @@
     border-top-right-radius: 1em;
 }
 
-#TaskTitleForm{
+.TaskTitleForm{
     width: 100%;
 }
 
-#TaskTitleInput {
+.TaskTitleInput {
     background-color: transparent;
     border: none;
-    font-size: larger;
+    font-size: 1.5em;
     font-weight: bold;
     size: '';
     width: 100%;
 }
 
-#TaskTitleInput:focus {
+.TaskTitleInput:focus {
     outline-style: none;
 }
 
@@ -80,7 +80,7 @@
 }
 
 /* Content */
-#TaskContent {
+.TaskContent {
     display: inline-flex;
     justify-content: space-between;
     width: 100%;
@@ -89,12 +89,12 @@
     background-color: #e0e2db;
 }
 
-#TaskContentForm {
+.TaskContentForm {
     width: 100%;
     padding-top: 1em;
 }
 
-#TaskContentForm textarea {
+.TaskContentForm textarea {
     resize: none;
     width: 100%;
     box-sizing: border-box;
