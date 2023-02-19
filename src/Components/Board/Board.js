@@ -74,7 +74,7 @@ export function Board(props) {
                                 taskIds: [],
                             }
                         ],
-                        newPanelId: board.newBoardId + 1,
+                        newPanelId: board.newPanelId + 1,
                         panelCount: board.panelCount + 1,
                     }    
                 }
@@ -359,6 +359,21 @@ export function Board(props) {
         });
     }
 
+    function deleteBoard(id) {
+        let newBoardId = 0;
+        if (userData.currentBoardId === id && userData.boards.length > 1) {
+            newBoardId = userData.boards[userData.boards.length - 2].id;
+        }
+        else if (userData.currentBoardId !== id) {
+            newBoardId = userData.currentBoardId;
+        }
+        setData({
+            ...userData,
+            boards: userData.boards.filter(board => board.id !== id),
+            currentBoardId: newBoardId,
+        });
+    }
+
     function changeCurrentBoard(id) {
         setData({
             ...userData,
@@ -378,29 +393,34 @@ export function Board(props) {
                     isHidden={sidebarIsHidden}
                     addBoard={addBoard}
                     changeCurrentBoard={changeCurrentBoard}
+                    deleteBoard={deleteBoard}
                 />
-                <div className='Panels'>
-                    {
-                        userData.boards.find(board => board.id === userData.currentBoardId).panels.map((panel, i) => {
-                            return <Panel
-                                panelId={panel.id}
-                                panelTitle={panel.title}
-                                taskIds={panel.taskIds}
-                                tasks={userData.boards.find(board => board.id === userData.currentBoardId).tasks}
-                                key={i}
-                                removePanel={removePanel}
-                                addTask={addTask}
-                                removeTask={removeTask}
-                                newTaskId={userData.boards.find(board => board.id === userData.currentBoardId).newTaskId}
-                                changePanelTitle={changePanelTitle}
-                                moveTask={moveTask}
-                                checkOffTask={checkOffTask}
-                                updateTaskTitle={updateTaskTitle}
-                                updateTaskDescription={updateTaskDescription}
-                            />
-                        })
-                    }
-                </div>
+                {
+                    userData.currentBoardId !== 0 ? 
+                    <div className='Panels'>
+                        {
+                            userData.boards.find(board => board.id === userData.currentBoardId).panels.map((panel, i) => {
+                                return <Panel
+                                    panelId={panel.id}
+                                    panelTitle={panel.title}
+                                    taskIds={panel.taskIds}
+                                    tasks={userData.boards.find(board => board.id === userData.currentBoardId).tasks}
+                                    key={i}
+                                    removePanel={removePanel}
+                                    addTask={addTask}
+                                    removeTask={removeTask}
+                                    newTaskId={userData.boards.find(board => board.id === userData.currentBoardId).newTaskId}
+                                    changePanelTitle={changePanelTitle}
+                                    moveTask={moveTask}
+                                    checkOffTask={checkOffTask}
+                                    updateTaskTitle={updateTaskTitle}
+                                    updateTaskDescription={updateTaskDescription}
+                                />
+                            })
+                        }
+                    </div> :
+                    <div></div>
+                }
             </div>
         </div>
     )

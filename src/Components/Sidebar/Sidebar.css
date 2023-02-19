@@ -10,22 +10,26 @@
     box-sizing: border-box;
     width: 100%;
     display: inline-flex;
-    justify-content: left;
+    justify-content: space-between;
     align-content: center;
     align-items: center;
     height: 3em;
-    color: white;
+    color: #e0e2db;
     background-color: #2e3532;
-}
-
-.sidebarItem span {
     padding-left: 1em;
-    overflow: hidden;
     white-space: nowrap;
+    overflow: hidden;
 }
 
-.sidebarItem span:hover {
+.sidebarEntryTitle {
+    font-size: 2em;
+    transition: all 0.25s;
+}
+
+.sidebarEntryTitle:hover {
     cursor: pointer;
+    color: #d3efbd;
+    font-size: 2.2em;
 }
 
 /* Add Pannel Button */
@@ -48,4 +52,14 @@
 
 #AddPanelButton span:hover {
     cursor: pointer;
+}
+
+.deleteBoardButton {
+    margin-top: 0.5em;
+    margin-bottom: auto;
+}
+
+.deleteBoardButton:hover {
+    cursor: pointer;
+    color: red;
 }

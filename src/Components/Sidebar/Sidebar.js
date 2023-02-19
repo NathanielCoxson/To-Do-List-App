@@ -2,7 +2,13 @@ import { useEffect } from 'react';
 import './Sidebar.css'
 
 export function Sidebar(props) {
-    const { isHidden, addBoard, boards, changeCurrentBoard } = props;
+    const { 
+        isHidden, 
+        addBoard, 
+        boards, 
+        changeCurrentBoard,
+        deleteBoard 
+    } = props;
 
     useEffect(() => {
         if (isHidden) {
@@ -23,16 +29,27 @@ export function Sidebar(props) {
         changeCurrentBoard(Number(event.target.id));
     }
 
+    function handleDeleteBoard(event) {
+        deleteBoard(Number(event.target.id));
+    }
+
     return (
         <div id='SidebarDiv'>
             {
                 boards.map((board, i) => {
                     return (
                         <div className='sidebarItem' key={i} >
-                            <span 
+                            <span
+                                className='sidebarEntryTitle' 
                                 onClick={handleSwitchBoard} 
                                 id={board.id}>
                                     {board.id}
+                            </span>
+                            <span 
+                                className='deleteBoardButton'
+                                onClick={handleDeleteBoard}
+                                id={board.id}>
+                                X
                             </span>
                         </div>
                     );
